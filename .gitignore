@@ -1,3 +1,7 @@
+# non-TS
+**/*.js
+**/*.js.map
+
 # Logs
 logs
 *.log

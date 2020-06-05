@@ -1,0 +1,25 @@
+{
+  "name": "image-directory-diff",
+  "version": "1.0.0",
+  "description": "An AWS Lambda function to parse a pdf and synthesize to text using AWS Polly service.",
+  "bin": {
+    "cdk": "bin/cdk.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "help": "npm run build && node dist/index.js --help",
+    "start1": "npm run build && node dist/index.js --haystack-dir c:/haystack --needles-dir c:/needles",
+    "start2": "npm run build && node dist/index.js -h c:/haystack -n c:/needles",
+    "watch": "tsc -w",
+    "test": "jest"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^13.1.8",
+    "ts-node": "^8.6.2"
+  },
+  "dependencies": {
+    "typescript": "^3.7.5",
+    "yargs": "^15.3.1"
+  }
+}
