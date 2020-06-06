@@ -7,9 +7,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "help": "npm run build && node dist/index.js --help",
-    "start1": "npm run build && node dist/index.js --haystack-dir c:/haystack --needles-dir c:/needles",
-    "start2": "npm run build && node dist/index.js -h c:/haystack -n c:/needles",
+    "help": "npm run build && node dist/Program.js --help",
+    "start1": "npm run build && node dist/Program.js --haystack-dir c:/haystack --needles-dir c:/needles",
+    "start2": "npm run build && node dist/Program.js -h c:/haystack -n c:/needles",
     "watch": "tsc -w",
     "test": "jest"
   },

@@ -16,7 +16,7 @@
                 "${workspaceFolder}/**/*.js"
             ],
             "preLaunchTask": "npm: build",
-            "program": "${workspaceFolder}\\dist\\index.js",
+            "program": "${workspaceFolder}\\dist\\Program.js",
             "request": "launch",
             "runtimeArgs": [
                 "--nolazy"
