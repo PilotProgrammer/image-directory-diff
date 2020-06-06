@@ -2,8 +2,6 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    // TODOGG - https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_launch-configuration-attributes
-    // https://stackoverflow.com/questions/31169259/how-to-debug-typescript-files-in-visual-studio-code for preLaunchTask idea
     "version": "0.2.0",
     "configurations": [
         {

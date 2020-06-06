@@ -1,8 +1,7 @@
 const fs = require('fs');
 
-// TODOGG: https://stackoverflow.com/questions/18510897/how-to-compare-two-images-using-node-js
-export class Program {
-  public main(event: any) {
+export class ImageDirectoryDifferenceDeterminer {
+  public determine(event: any) {
     console.log(process.argv);
 
     console.log('Hello World!');
@@ -10,12 +9,26 @@ export class Program {
 
     let fileList: [] = []
     // const returnList = this.walkFiles('c:/android-sdcard-11-17-19/Camera/', fileList)
-    const returnList = this.walkFiles('C:/Users/Garrett/Documents/AsusPictures/', fileList)
-    console.log(JSON.stringify(returnList.length))
+    // const returnList = this.walkFiles('C:/Users/Garrett/Documents/AsusPictures/', fileList)
+    // console.log(JSON.stringify(returnList.length))
     return response;
   }
 
-  public walkFiles(dir: any, filelist: any): any {
+}
+
+export class Directory {
+
+  public constructor(private directoryName: string) {
+    this._allFiles = this.walkFiles(this.directoryName, [])
+  }
+
+  private _allFiles: string;
+
+  get allFiles() {
+    return this._allFiles
+  }
+
+  private walkFiles(dir: any, filelist: any): any {
     let files = fs.readdirSync(dir);
     filelist = filelist || [];
 
@@ -29,17 +42,15 @@ export class Program {
     }
     return filelist;
   };
-
 }
 
 exports.handler = async (event: any = {}): Promise<any> => {
-  const prog = new Program();
-  prog.main(event);
+  const prog = new ImageDirectoryDifferenceDeterminer();
+  // prog.main(event);
 }
 
 const yargs = require('yargs');
 
-// https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/
 const argv = yargs
   .option('haystack-dir', {
     alias: 'h',
@@ -69,3 +80,30 @@ console.log(`haystackDir: ${haystackDir} needlesDir: ${needlesDir}`)
 
 // exports.handler()
 
+
+var crypto = require('crypto')
+
+function checksum(str?: any, algorithm?: any, encoding?: any) {
+  return crypto
+    .createHash(algorithm || 'md5')
+    .update(str, 'utf8')
+    .digest(encoding || 'hex')
+}
+
+let checksum1 = checksum('This is my test text') // e53815e8c095e270c6560be1bb76a65d
+let checksum2 = checksum('This is my test text', 'sha1') // cd5855be428295a3cc1793d6e80ce47562d23def
+
+console.log(`checksum1: ${checksum1} checksum2: ${checksum2}`)
+
+
+
+
+// resources
+// https://www.html5rocks.com/en/tutorials/webgl/typed_arrays/
+// https://medium.com/javascript-in-plain-english/how-to-read-files-with-buffer-stream-in-node-js-d77de6ae6b49
+// https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_launch-configuration-attributes
+// https://stackoverflow.com/questions/31169259/how-to-debug-typescript-files-in-visual-studio-code for preLaunchTask idea
+// https://stackoverflow.com/questions/18510897/how-to-compare-two-images-using-node-js
+// ** https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/
+// ** https://blog.abelotech.com/posts/calculate-checksum-hash-nodejs-javascript/
+// https://stackoverflow.com/questions/39494058/behaviorsubject-vs-observable
