@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "args": [],
+            "args": [ "-h", "c:/haystack", "-n", "c:/needles"],
             "cwd": "${workspaceRoot}",
             "env": {
                 "NODE_ENV": "development"
