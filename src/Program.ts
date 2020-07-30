@@ -25,12 +25,7 @@ function checksum(str?: any, algorithm?: any, encoding?: any) {
     .digest(encoding || 'hex')
 }
 
-// let checksum1 = checksum('This is my test text') // e53815e8c095e270c6560be1bb76a65d
-// let checksum2 = checksum('This is my test text', 'sha1') // cd5855be428295a3cc1793d6e80ce47562d23def
-// console.log(`checksum1: ${checksum1} checksum2: ${checksum2}`)
-
 const fileName = 'c:/needles/100_0148.JPG'
-
 
 const encoding = "utf8"
 
@@ -50,7 +45,7 @@ const readStream = async function readStream(stream: any) {
       data += chunk
     });
     stream.on("end", () => {
-      const results = hash.digest('hex') 
+      const results = hash.digest('hex')
       console.log(`hash2-end: ${results}`)
       resolve(data)
     });
@@ -68,17 +63,17 @@ export class Program {
     const text: any = await readStream(stream2)
     console.log(`hash2 done: ${text.length} `)
 
-    var hash = crypto.createHash('sha256'),
-      stream = fs.createReadStream(fileName)
-    stream.setEncoding(encoding);
-stream.on('data', function (data: any) {
-      hash.update(data, encoding)
-  console.log(`hash updated`)
-})
-stream.on('end', function () {
-      const results = hash.digest('hex') 
-  console.log(`hash done: ${results} `)
-})
+    var hash3 = crypto.createHash('sha256'),
+      stream3 = fs.createReadStream(fileName)
+    stream3.setEncoding(encoding);
+    stream3.on('data', function (data3: any) {
+      hash3.update(data3, encoding)
+      console.log(`hash3 updated`)
+    })
+    stream3.on('end', function () {
+      const results3 = hash3.digest('hex')
+      console.log(`hash3 done: ${results3} `)
+    })
   }
 }
 Program.main()
