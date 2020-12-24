@@ -13,59 +13,53 @@ let { haystackDir, needlesDir } = argParser.parseArgs();
 
 console.log(`haystackDir: ${haystackDir} needlesDir: ${needlesDir}`)
 
-// exports.handler()
 
 
 var crypto = require('crypto')
 
-function checksum(str?: any, algorithm?: any, encoding?: any) {
-  return crypto
-    .createHash(algorithm || 'md5')
-    .update(str, 'utf8')
-    .digest(encoding || 'hex')
-}
 
 const fileName = 'c:/needles/100_0148.JPG'
-
+// const fileName2 = 'c:/needles/100_0148-2.JPG'
+// const fileName = 'c:/needles/test.txt'
 const encoding = "utf8"
 
 // option 1 start
-const readStream = async function readStream(stream: any) {
+const readStream = async (stream: any) => {
+  console.log(`readStream ENTER!`)
 
   stream.setEncoding(encoding);
 
   return new Promise((resolve, reject) => {
-    let data = "";
-    var hash = crypto.createHash('sha256')
 
+    let data = ""
+    let hash = crypto.createHash('sha256')
 
-    stream.on("data", (chunk: any) => {
-      console.log(`hash2-updated: `)
+    console.log(`hash2-updated: `)
+    stream.on('data', (chunk: any) => {
       hash.update(data, encoding)
       data += chunk
     });
-    stream.on("end", () => {
+    stream.on('end', () => {
       const results = hash.digest('hex')
       console.log(`hash2-end: ${results}`)
       resolve(data)
     });
-    stream.on("error", (error: any) => {
+    stream.on('error', (error: any) => {
       console.log(`hash2-error: ${error} `)
       reject(error)
     })
-  });
+
+  })
 }
 
+const readStream3 = async (stream3: any) => {
 
-export class Program {
-  public static async main() {
-    const stream2 = fs.createReadStream(fileName)
-    const text: any = await readStream(stream2)
-    console.log(`hash2 done: ${text.length} `)
+  let hash3 = crypto.createHash('sha256')
+  // let stream3 = fs.createReadStream(fileName)
+  stream3.setEncoding(encoding);
 
-    var hash3 = crypto.createHash('sha256'),
-      stream3 = fs.createReadStream(fileName)
-    stream3.setEncoding(encoding);
+  return new Promise((resolve, reject) => {
+
     stream3.on('data', function (data3: any) {
       hash3.update(data3, encoding)
       console.log(`hash3 updated`)
@@ -73,10 +67,148 @@ export class Program {
     stream3.on('end', function () {
       const results3 = hash3.digest('hex')
       console.log(`hash3 done: ${results3} `)
+      resolve(true)
     })
-  }
+
+  })
 }
-Program.main()
+
+const readStream5 = async (fd: any, stream?: any) => {
+
+  var hash = crypto.createHash('sha256');
+  hash.setEncoding('hex');
+
+  // read all file and pipe it (write it) to the hash object
+  fd.pipe(hash);
+  
+  var end = new Promise(function(resolve, reject) {
+      hash.on('end', () => resolve(hash.read()));
+      fd.on('error', reject); // or something like that. might need to close `hash`
+  });
+  
+  return end
+}
+
+
+var fd = fs.createReadStream(fileName);
+var hash = crypto.createHash('sha256');
+hash.setEncoding('hex');
+
+// https://stackoverflow.com/questions/18658612/obtaining-the-hash-of-a-file-using-the-stream-capabilities-of-crypto-module-ie
+// see "Further polish, ECMAScript 2015"
+function checksumFile(algorithm: any, path: any) {
+  return new Promise((resolve, reject) =>
+    fs.createReadStream(path)
+      .on('error', reject)
+      .pipe(crypto.createHash(algorithm)
+        .setEncoding('hex'))
+      .once('finish', function () {
+        resolve(fs.read())
+      })
+  )
+}
+
+
+(async function () {
+  console.log('1');
+
+  const sha = await checksumFile('sha256', fileName)
+  console.log(`READ ${sha}`);
+
+}());
+
+/*
+  console.log(`1 `)
+
+var end = new Promise(function(resolve, reject) {
+  console.log(`2 `)
+
+    hash.on('end', () => {
+      resolve(hash.read())
+      console.log(`3 `)
+
+    });
+
+    console.log(`4 `)
+
+    fd.on('error', reject); // or something like that. might need to close `hash`
+
+    console.log(`4 `)
+
+});
+
+fd.pipe(hash);
+
+
+(async function() {
+  console.log(`5 `)
+
+  let sha1sum = await end;
+
+  console.log(`6 `)
+
+  console.log(sha1sum);
+}());
+
+*/
+
+/*
+(async () => {
+
+  // await new Promise(resolve => setTimeout(resolve, 5000));
+  // await new Promise((resolve, reject) => {    r.pipe(w) })
+
+  // console.log(`1 `)
+  // const r = fs.createReadStream(fileName);
+  // console.log(`2 `)
+  // r.on('data', function (data3: any) {
+  //   console.log(`got data`)
+  // })
+  // console.log(`3 `)
+  // const w = fs.createWriteStream(fileName + ".2.jpg");
+  // console.log(`4 `)
+  // console.log(`5 `)
+
+  // console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FILE 2`)
+
+  // const stream2_2 = fs.createReadStream(fileName2)
+  // const text_2: any = await readStream(stream2_2)
+  // console.log(`hash2 done `)
+
+  // const stream3_2 = fs.createReadStream(fileName2)
+  // const text3_2: any = await readStream3(stream3_2)
+  // console.log(`hash3 done `)
+
+  // const stream5_2 = fs.createReadStream(fileName)
+  // const text5_2: any = await readStream5(stream5_2)
+  // console.log(`hash5 done ${text5_2}`)  
+
+})();
+
+*/
+
+
+
+// export class Program {
+//   public static async main() {
+//     const stream2 = fs.createReadStream(fileName)
+//     const text: any = await readStream(stream2)
+//     console.log(`hash2 done: ${text.length} `)
+
+//     var hash3 = crypto.createHash('sha256'),
+//     stream3 = fs.createReadStream(fileName)
+//     stream3.setEncoding(encoding);
+//     stream3.on('data', function (data3: any) {
+//       hash3.update(data3, encoding)
+//       console.log(`hash3 updated`)
+//     })
+//     stream3.on('end', function () {
+//       const results3 = hash3.digest('hex')
+//       console.log(`hash3 done: ${results3} `)
+//     })
+//   }
+// }
+// Program.main()
 // option 1 end
 
 
@@ -112,3 +244,41 @@ var end = new Promise(function (resolve, reject) {
 // https://stackoverflow.com/questions/30423413/node-js-streams-vs-observables
 // ** https://stackoverflow.com/questions/33599688/how-to-use-es8-async-await-with-streams
 // ** https://humanwhocodes.com/snippets/2019/05/nodejs-read-stream-promise/
+
+
+
+
+
+
+
+
+// ATTIC
+/*
+const readStream = async (stream: any) => {
+  console.log(`readStream ENTER!`)
+
+  stream.setEncoding(encoding);
+
+  return new Promise((resolve, reject) => {
+
+    let data = ""
+    let hash = crypto.createHash('sha256')
+
+    stream.on('data', (chunk: any) => {
+      console.log(`hash2-updated: `)
+      hash.update(data, encoding)
+      data += chunk
+    });
+    stream.on('end', () => {
+      const results = hash.digest('hex')
+      console.log(`hash2-end: ${results}`)
+      resolve(data)
+    });
+    stream.on('error', (error: any) => {
+      console.log(`hash2-error: ${error} `)
+      reject(error)
+    })
+
+  })
+}
+*/
