@@ -2,6 +2,7 @@
 **/*.js
 **/*.js.map
 !test.js
+!jest.config.js
 
 # Logs
 logs
