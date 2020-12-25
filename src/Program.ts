@@ -80,36 +80,36 @@ const readStream5 = async (fd: any, stream?: any) => {
 
   // read all file and pipe it (write it) to the hash object
   fd.pipe(hash);
-  
-  var end = new Promise(function(resolve, reject) {
-      hash.on('end', () => resolve(hash.read()));
-      fd.on('error', reject); // or something like that. might need to close `hash`
+
+  var end = new Promise(function (resolve, reject) {
+    hash.on('end', () => resolve(hash.read()));
+    fd.on('error', reject); // or something like that. might need to close `hash`
   });
-  
+
   return end
 }
 
 
-var fd = fs.createReadStream(fileName);
-var hash = crypto.createHash('sha256');
-hash.setEncoding('hex');
+var inputStream = fs.createReadStream(fileName);
 
 // https://stackoverflow.com/questions/18658612/obtaining-the-hash-of-a-file-using-the-stream-capabilities-of-crypto-module-ie
 // see "Further polish, ECMAScript 2015"
-function checksumFile(algorithm: any, path: any) {
+function checksumFile(inputStream) {
+  var hash = crypto.createHash('sha256');
+  hash.setEncoding('hex');
+
   return new Promise((resolve, reject) =>
-    fs.createReadStream(path)
-      .on('error', reject)
-      .pipe(crypto.createHash(algorithm)
-        .setEncoding('hex'))
+      // .on('error', reject)
+      inputStream
+      .pipe(hash)
       .once('finish', function () {
-        resolve(fs.read())
+        resolve('adsf') //inputStream.read())
       })
   )
 }
 
 (async function () {
-  const sha = await checksumFile('sha256', fileName)
+  const sha = await checksumFile(inputStream)
   console.log(`READ ${sha}`);
 }());
 
@@ -177,7 +177,7 @@ fd.pipe(hash);
 
   // const stream5_2 = fs.createReadStream(fileName)
   // const text5_2: any = await readStream5(stream5_2)
-  // console.log(`hash5 done ${text5_2}`)  
+  // console.log(`hash5 done ${text5_2}`)
 
 })();
 
@@ -284,14 +284,18 @@ const readStream = async (stream: any) => {
 
 // https://stackoverflow.com/questions/18658612/obtaining-the-hash-of-a-file-using-the-stream-capabilities-of-crypto-module-ie
 // see "Further polish, ECMAScript 2015"
-function checksumFile(algorithm: any, path: any) {
+const fs = require('fs');
+const crypto = require('crypto')
+const fileName = 'c:/needles/100_0148.JPG'
+
+function checksumFile(algorithm, path) {
   return new Promise((resolve, reject) =>
     fs.createReadStream(path)
       .on('error', reject)
       .pipe(crypto.createHash(algorithm)
         .setEncoding('hex'))
       .once('finish', function () {
-        resolve(fs.read())
+        resolve(this.read())
       })
   )
 }
@@ -300,4 +304,5 @@ function checksumFile(algorithm: any, path: any) {
   const sha = await checksumFile('sha256', fileName)
   console.log(`READ ${sha}`);
 }());
+
 */
