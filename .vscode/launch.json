@@ -5,12 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "args": [ "-h", "c:/haystack", "-n", "c:/needles"],
+            "args": [
+                "-h",
+                "c:/haystack",
+                "-n",
+                "c:/needles"
+            ],
             "cwd": "${workspaceRoot}",
             "env": {
                 "NODE_ENV": "development"
             },
-           // "console": false,
+            // "console": false,
             "name": "DEBUG",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"

@@ -1,0 +1,14 @@
+
+resources
+https://www.html5rocks.com/en/tutorials/webgl/typed_arrays/
+https://medium.com/javascript-in-plain-english/how-to-read-files-with-buffer-stream-in-node-js-d77de6ae6b49
+https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_launch-configuration-attributes
+https://stackoverflow.com/questions/31169259/how-to-debug-typescript-files-in-visual-studio-code for preLaunchTask idea
+https://stackoverflow.com/questions/18510897/how-to-compare-two-images-using-node-js
+** https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/
+** https://blog.abelotech.com/posts/calculate-checksum-hash-nodejs-javascript/
+https://stackoverflow.com/questions/39494058/behaviorsubject-vs-observable
+https://stackoverflow.com/questions/30423413/node-js-streams-vs-observables
+** https://stackoverflow.com/questions/33599688/how-to-use-es8-async-await-with-streams
+** https://humanwhocodes.com/snippets/2019/05/nodejs-read-stream-promise/
+https://dev.to/cdanielsen/wrap-your-streams-with-promises-for-fun-and-profit-51ka
