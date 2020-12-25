@@ -16,7 +16,7 @@ console.log(`haystackDir: ${haystackDir} needlesDir: ${needlesDir}`)
 
 
 var crypto = require('crypto')
-
+import { Hash } from 'crypto'
 
 const fileName = 'c:/needles/100_0148.JPG'
 // const fileName2 = 'c:/needles/100_0148-2.JPG'
@@ -98,7 +98,7 @@ function checksumFile(algorithm: any, path: any) {
       .on('error', reject)
       .pipe(crypto.createHash(algorithm)
         .setEncoding('hex'))
-      .once('finish', function () {
+      .once('finish', function (this: Hash) {
         resolve(this.read())
       })
   )
@@ -110,7 +110,7 @@ function checksumFile(algorithm: any, path: any) {
 }());
 
 /*
-  console.log(`1 `)
+console.log(`1 `)
 
 var end = new Promise(function(resolve, reject) {
   console.log(`2 `)
