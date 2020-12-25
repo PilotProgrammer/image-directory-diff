@@ -108,13 +108,9 @@ function checksumFile(algorithm: any, path: any) {
   )
 }
 
-
 (async function () {
-  console.log('1');
-
   const sha = await checksumFile('sha256', fileName)
   console.log(`READ ${sha}`);
-
 }());
 
 /*
@@ -281,4 +277,27 @@ const readStream = async (stream: any) => {
 
   })
 }
+*/
+
+
+/* WORKS!!
+
+// https://stackoverflow.com/questions/18658612/obtaining-the-hash-of-a-file-using-the-stream-capabilities-of-crypto-module-ie
+// see "Further polish, ECMAScript 2015"
+function checksumFile(algorithm: any, path: any) {
+  return new Promise((resolve, reject) =>
+    fs.createReadStream(path)
+      .on('error', reject)
+      .pipe(crypto.createHash(algorithm)
+        .setEncoding('hex'))
+      .once('finish', function () {
+        resolve(fs.read())
+      })
+  )
+}
+
+(async function () {
+  const sha = await checksumFile('sha256', fileName)
+  console.log(`READ ${sha}`);
+}());
 */
