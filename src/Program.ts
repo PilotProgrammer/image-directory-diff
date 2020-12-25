@@ -92,24 +92,20 @@ const readStream5 = async (fd: any, stream?: any) => {
 
 var inputStream = fs.createReadStream(fileName);
 
-// https://stackoverflow.com/questions/18658612/obtaining-the-hash-of-a-file-using-the-stream-capabilities-of-crypto-module-ie
-// see "Further polish, ECMAScript 2015"
-function checksumFile(inputStream) {
-  var hash = crypto.createHash('sha256');
-  hash.setEncoding('hex');
-
+function checksumFile(algorithm: any, path: any) {
   return new Promise((resolve, reject) =>
-      // .on('error', reject)
-      inputStream
-      .pipe(hash)
+    fs.createReadStream(path)
+      .on('error', reject)
+      .pipe(crypto.createHash(algorithm)
+        .setEncoding('hex'))
       .once('finish', function () {
-        resolve('adsf') //inputStream.read())
+        resolve(this.read())
       })
   )
 }
 
 (async function () {
-  const sha = await checksumFile(inputStream)
+  const sha = await checksumFile('sha256', fileName)
   console.log(`READ ${sha}`);
 }());
 
@@ -240,6 +236,7 @@ var end = new Promise(function (resolve, reject) {
 // https://stackoverflow.com/questions/30423413/node-js-streams-vs-observables
 // ** https://stackoverflow.com/questions/33599688/how-to-use-es8-async-await-with-streams
 // ** https://humanwhocodes.com/snippets/2019/05/nodejs-read-stream-promise/
+// https://dev.to/cdanielsen/wrap-your-streams-with-promises-for-fun-and-profit-51ka
 
 
 

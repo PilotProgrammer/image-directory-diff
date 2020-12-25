@@ -1,6 +1,7 @@
 # non-TS
 **/*.js
 **/*.js.map
+!test.js
 
 # Logs
 logs
