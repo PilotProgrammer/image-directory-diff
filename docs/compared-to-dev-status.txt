@@ -1,0 +1,25 @@
+ts.config - everything in external is in here. not everything in here is in external
+
+"strict": true,
+"baseUrl": "./",
+"typeRoots": [
+"node_modules/@types"
+],
+"types": [
+"node"
+],
+"esModuleInterop": true,
+//  "inlineSourceMap": true,
+"strict": true,
+"baseUrl": "./",
+"typeRoots": [
+"node_modules/@types"
+],
+"types": [
+"node"
+],
+"esModuleInterop": true,
+//  "inlineSourceMap": true,
+
+    "strictPropertyInitialization": false,
+    "sourceMap": true

@@ -2,6 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "outDir": "./dist",
+    "allowJs": false,
+    "moduleResolution": "node",
     "strict": true,
     "baseUrl": "./",
     "typeRoots": [
@@ -11,9 +13,13 @@
       "node"
     ],
     "esModuleInterop": true,
-  //  "inlineSourceMap": true,
-    "target":"ES2017",
-    "lib": ["es2017"],
+    //  "inlineSourceMap": true,
+    "target": "ES2017",
+    "lib": [
+      "es2017",
+      "es5",
+      "es6"
+    ],
     "declaration": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -25,8 +31,14 @@
     "noFallthroughCasesInSwitch": false,
     "inlineSources": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization":false,
+    "emitDecoratorMetadata": true,
+    "incremental": true,
+    "strictPropertyInitialization": false,
     "sourceMap": true
   },
-  "exclude": ["dist"]
+  "exclude": [
+    "dist",
+    "node_modeules",
+    "tests/",
+  ]
 }
