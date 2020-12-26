@@ -1,10 +1,6 @@
 import { ArgParser } from "./lib/ArgParser";
+import { File } from "./lib/File";
 import { ImageDirectoryDiff } from "./lib/ImageDirectoryDiff";
-import { Hash } from 'crypto'
-
-const fs = require('fs');
-const crypto = require('crypto')
-
 
 exports.handler = async (event: any = {}): Promise<any> => {
   const prog = new ImageDirectoryDiff();
@@ -15,27 +11,17 @@ const argParser = new ArgParser();
 let { haystackDir, needlesDir } = argParser.parseArgs();
 console.log(`haystackDir: ${haystackDir} needlesDir: ${needlesDir}`)
 
-const fileName = 'c:/needles/100_0148.JPG'
+// '/Library/haystack/1.JPG' is 1557620823e163c4c69bf7970df6e007fed8741613ded73009dd93eed04586ce
+// const fileName = '/Library/haystack/1.JPG'
+const fileName = '/Library/needles/1.JPG'
 
-function checksumFile(algorithm: any, path: any) {
-  return new Promise((resolve, reject) =>
-    fs.createReadStream(path)
-      .on('error', reject)
-      .pipe(crypto.createHash(algorithm)
-        .setEncoding('hex'))
-      .once('finish', function (this: Hash) {
-        resolve(this.read())
-      })
-  )
-}
-
-(async function () {
-}());
 
 export class Program {
   public static async main() {
-    const sha = await checksumFile('sha256', fileName)
-    console.log(`READ ${sha}`);
+    const file = new File(fileName)
+    const fileType = await file.getFileMimeType()
+    const fileHash = await file.checksum
+    console.log(`READ ${fileType} ${fileHash} ${fileName}`);
   }
 }
 Program.main()
