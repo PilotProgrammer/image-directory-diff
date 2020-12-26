@@ -12,3 +12,6 @@ https://stackoverflow.com/questions/30423413/node-js-streams-vs-observables
 ** https://stackoverflow.com/questions/33599688/how-to-use-es8-async-await-with-streams
 ** https://humanwhocodes.com/snippets/2019/05/nodejs-read-stream-promise/
 https://dev.to/cdanielsen/wrap-your-streams-with-promises-for-fun-and-profit-51ka
+
+
+npm install --save-dev @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-loader file-loader jest jest-cli source-map-support ts-jest ts-loader ts-node tslint webpack webpack-bundle-analyzer webpack-cli

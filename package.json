@@ -14,8 +14,36 @@
     "test": "jest"
   },
   "license": "ISC",
+  "jest": {
+    "automock": false,
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageDirectory": ".coverage",
+    "testRegex": ".*\\test\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "tsx"
+    ],
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "modeulResolution": "node",
+          "module": "commonjs",
+          "target": "es6"
+        }
+      }
+    },
+    "preset": "ts-jest",
+    "testMatch": null
+  },
   "devDependencies": {
     "@types/node": "^14.14.16",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
     "ts-node": "^9.1.1"
   },
   "dependencies": {
