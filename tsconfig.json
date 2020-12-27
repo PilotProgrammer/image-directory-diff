@@ -10,7 +10,8 @@
       "node_modules/@types"
     ],
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "esModuleInterop": true,
     //  "inlineSourceMap": true,
@@ -39,6 +40,6 @@
   "exclude": [
     "dist",
     "node_modeules",
-    "tests/",
+    "test",
   ]
 }
