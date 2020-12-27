@@ -8,6 +8,7 @@ export class HashCreater {
 
   private _checkSum: string
 
+  // https://stackoverflow.com/questions/18658612/obtaining-the-hash-of-a-file-using-the-stream-capabilities-of-crypto-module-ie "Further polish, ECMAScript 2015"
   public async getChecksum() {
     if (this._checkSum == null) {
       this._checkSum = await new Promise((resolve, reject) =>

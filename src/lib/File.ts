@@ -1,41 +1,41 @@
 import { Hash } from "crypto";
 import { HashCreater } from "./HashCreater";
+import {factory} from "../Program";
 
 const FileType = require('file-type');
 
 export class File {
-  public constructor(private filePath: string) {
-    // this._allFiles = this.walkFiles(this.directoryName, []);
-  }
+  private logger = factory.getLogger((<any>this).constructor.name);
+
+  public constructor(private filePath: string) {  }
 
   private _hashCreater: HashCreater;
   private _fileMimeType: string;
   private _fileSize: number
 
   public async equals(otherFile: File) {
-    // TODO
-
     // check file name
-    console.log(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
+    this.logger.info(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
     if (this.fileName != otherFile.fileName)
     return false
     
-    console.log(`this.checksum != otherFile.checksum? ${await this.getChecksum() != await otherFile.getChecksum()}`)
+    this.logger.info(`this.checksum != otherFile.checksum? ${await this.getChecksum() != await otherFile.getChecksum()}`)
     // file hash
     if (await this.getChecksum() != await otherFile.getChecksum())
     return false
     
     // file size
-    console.log(`this.getTotalFileBytes() != otherFile.getTotalFileBytes()? ${this.getTotalFileBytes() != otherFile.getTotalFileBytes()}`)
+    this.logger.info(`this.getTotalFileBytes() != otherFile.getTotalFileBytes()? ${this.getTotalFileBytes() != otherFile.getTotalFileBytes()}`)
     if (this.getTotalFileBytes() != otherFile.getTotalFileBytes())
     return false
     
     // file type
-    console.log(`this.getFileMimeType() != otherFile.getFileMimeType()? ${await this.getFileMimeType() != await otherFile.getFileMimeType()}`)
+    this.logger.info(`this.getFileMimeType() != otherFile.getFileMimeType()? ${await this.getFileMimeType() != await otherFile.getFileMimeType()}`)
     if (await this.getFileMimeType() != await otherFile.getFileMimeType())
       return false
 
-    // if movie, duration, other movie or picture specs that can be verified?
+    // TODO if movie, duration, other movie or picture specs that can be verified?
+    
     return true
   }
 
