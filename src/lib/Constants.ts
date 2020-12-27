@@ -6,4 +6,5 @@ export enum ImageFileTypes {
 export enum VideoFileTypes {
     MP4 = 'video/MP4',
     AVI = 'video/x-msvideo',
+    MOV = 'video/quicktime'
 }

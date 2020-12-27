@@ -5,6 +5,7 @@ import { MediaFile } from "./lib/MediaFile";
 import { ImageDirectoryDiff } from "./lib/ImageDirectoryDiff";
 import { ImageFile } from "./lib/ImageFile";
 import { VideoFile } from "./lib/VideoFile";
+import { MediaFileFactory } from "./lib/MediaFileFactory";
 
 const options = new LoggerFactoryOptions()
   // .addLogGroupRule(new LogGroupRule(new RegExp("model.+"), LogLevel.Debug))
@@ -31,6 +32,10 @@ const fileName3 = '/Library/haystack/2.JPG'
 
 export class Program {
   public static async main() {
+    const factory = new MediaFileFactory()
+    await factory.createMediaFile(fileName)
+    await factory.createMediaFile(videoFileName1)
+
     const videoFile = new VideoFile(fileName)
     const duration = await videoFile.getVideoDurationInSeconds()
     console.log(`duration ${JSON.stringify(duration)}`);
