@@ -4,16 +4,16 @@ import {factory} from "../Program";
 
 const FileType = require('file-type');
 
-export class File {
+export abstract class MediaFile {
   private logger = factory.getLogger((<any>this).constructor.name);
 
-  public constructor(private filePath: string) {  }
+  public constructor(protected filePath: string) {  }
 
   private _hashCreater: HashCreater;
   private _fileMimeType: string;
   private _fileSize: number
 
-  public async equals(otherFile: File) {
+  public async equals(otherFile: MediaFile) {
     // check file name
     this.logger.info(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
     if (this.fileName != otherFile.fileName)
@@ -35,7 +35,7 @@ export class File {
       return false
 
     // TODO if movie, duration, other movie or picture specs that can be verified?
-    
+
     return true
   }
 
