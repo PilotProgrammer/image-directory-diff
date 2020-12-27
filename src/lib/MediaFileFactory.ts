@@ -1,4 +1,7 @@
 import { ImageFileTypes, VideoFileTypes } from "./Constants";
+import { ImageFile } from "./ImageFile";
+import { MediaFile } from "./MediaFile";
+import { VideoFile } from "./VideoFile";
 
 const FileType = require('file-type');
 
@@ -6,9 +9,12 @@ export class MediaFileFactory {
   public async createMediaFile(filePath: string) {
     const fileMimeType: string = (await FileType.fromFile(filePath)).mime
 
-    console.log(`fileMimeType ${fileMimeType} Object.values(VideoFileTypes) ${Object.values(VideoFileTypes)} Object.values(ImageFileTypes) ${Object.values(ImageFileTypes)}`)
+    if ((<string[]>Object.values(VideoFileTypes)).includes(fileMimeType)) {
+      return new VideoFile(filePath)
+    } else if ((<string[]>Object.values(ImageFileTypes)).includes(fileMimeType)) {
+      return new ImageFile(filePath)
+    }
 
-    // if (Object.values(VideoFileTypes).includes('video/MP4')) {
-    // }
+    return null
   }
 }

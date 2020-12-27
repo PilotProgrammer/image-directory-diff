@@ -13,11 +13,14 @@ export abstract class MediaFile {
   private _fileMimeType: string;
   private _fileSize: number
 
-  public async equals(otherFile: MediaFile) {
+  public async equals(otherFile: MediaFile | null) {
+    if (otherFile == null)
+     return false
+    
     // check file name
     this.logger.info(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
     if (this.fileName != otherFile.fileName)
-    return false
+      return false
     
     this.logger.info(`this.checksum != otherFile.checksum? ${await this.getChecksum() != await otherFile.getChecksum()}`)
     // file hash
