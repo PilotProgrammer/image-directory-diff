@@ -1,43 +1,46 @@
 import { Hash } from "crypto";
 import { HashCreater } from "./HashCreater";
-import {factory} from "../Program";
+import { factory } from "../Program";
 
 const FileType = require('file-type');
 
 export abstract class MediaFile {
   private logger = factory.getLogger((<any>this).constructor.name);
 
-  public constructor(protected filePath: string) {  }
+  public constructor(protected filePath: string) { }
 
   private _hashCreater: HashCreater;
   private _fileMimeType: string;
   private _fileSize: number
 
   public async equals(otherFile: MediaFile | null) {
-    if (otherFile == null)
-     return false
-    
-    // check file name
-    this.logger.info(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
-    if (this.fileName != otherFile.fileName)
+    if (otherFile == null) {
       return false
-    
-    this.logger.info(`this.checksum != otherFile.checksum? ${await this.getChecksum() != await otherFile.getChecksum()}`)
-    // file hash
-    if (await this.getChecksum() != await otherFile.getChecksum())
-    return false
-    
-    // file size
-    this.logger.info(`this.getTotalFileBytes() != otherFile.getTotalFileBytes()? ${this.getTotalFileBytes() != otherFile.getTotalFileBytes()}`)
-    if (this.getTotalFileBytes() != otherFile.getTotalFileBytes())
-    return false
-    
-    // file type
-    this.logger.info(`this.getFileMimeType() != otherFile.getFileMimeType()? ${await this.getFileMimeType() != await otherFile.getFileMimeType()}`)
-    if (await this.getFileMimeType() != await otherFile.getFileMimeType())
-      return false
+    }
 
-    // TODO if movie, duration, other movie or picture specs that can be verified?
+    // check file name
+    // console.log(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
+    if (this.fileName != otherFile.fileName) {
+      return false
+    }
+
+    // console.log(`this.checksum != otherFile.checksum? ${await this.getChecksum() != await otherFile.getChecksum()}`)
+    // file hash
+    if (await this.getChecksum() != await otherFile.getChecksum()) {
+      return false
+    }
+
+    // file size
+    // console.log(`this.getTotalFileBytes() != otherFile.getTotalFileBytes()? ${this.getTotalFileBytes() != otherFile.getTotalFileBytes()}`)
+    if (this.getTotalFileBytes() != otherFile.getTotalFileBytes()) {
+      return false
+    }
+
+    // file type
+    // console.log(`this.getFileMimeType() != otherFile.getFileMimeType()? ${await this.getFileMimeType() != await otherFile.getFileMimeType()}`)
+    if (await this.getFileMimeType() != await otherFile.getFileMimeType()) {
+      return false
+    }
 
     return true
   }
