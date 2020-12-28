@@ -6,19 +6,10 @@ export class ImageFile extends MediaFile {
   private _dimensions: Dimensions
 
   public async equals(otherFile: MediaFile) {
-    if (!this.sameMediaType(otherFile)) {
-      return false
-    }
-
+    if (!this.sameMediaType(otherFile)) return false
     const otherImage = <ImageFile> otherFile
-
-    if (!(await this.sameDimensions(otherImage))) {
-      return false
-    }
-
-    if (!super.equals(otherFile)) {
-      return false
-    }
+    if (!(await this.sameDimensions(otherImage))) return false
+    if (!super.equals(otherFile)) return false
     
     return true
   }

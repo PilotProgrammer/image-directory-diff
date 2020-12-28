@@ -1,6 +1,5 @@
-import { Hash } from "crypto";
-import { HashCreater } from "./HashCreater";
 import { factory } from "../Program";
+import { HashCreater } from "./HashCreater";
 
 const FileType = require('file-type');
 
@@ -14,35 +13,48 @@ export abstract class MediaFile {
   private _fileSize: number
 
   public async equals(otherFile: MediaFile | null) {
-    if (otherFile == null) {
-      return false
-    }
-
-    // check file name
-    // console.log(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
-    if (this.fileName != otherFile.fileName) {
-      return false
-    }
-
-    // console.log(`this.checksum != otherFile.checksum? ${await this.getChecksum() != await otherFile.getChecksum()}`)
-    // file hash
-    if (await this.getChecksum() != await otherFile.getChecksum()) {
-      return false
-    }
-
-    // file size
-    // console.log(`this.getTotalFileBytes() != otherFile.getTotalFileBytes()? ${this.getTotalFileBytes() != otherFile.getTotalFileBytes()}`)
-    if (this.getTotalFileBytes() != otherFile.getTotalFileBytes()) {
-      return false
-    }
-
-    // file type
-    // console.log(`this.getFileMimeType() != otherFile.getFileMimeType()? ${await this.getFileMimeType() != await otherFile.getFileMimeType()}`)
-    if (await this.getFileMimeType() != await otherFile.getFileMimeType()) {
-      return false
-    }
-
+    if (otherFile == null) return false
+    if (!(await this.sameFileName(otherFile))) return false
+    if (!(await this.sameHash(otherFile))) return false
+    if (!(await this.sameTotalFileBytes(otherFile))) return false
+    if (!(await this.sameFileMimeType(otherFile))) return false
     return true
+  }
+
+  public async sameFileMimeType(otherFile: MediaFile) {
+    // console.log(`this.getFileMimeType() != otherFile.getFileMimeType()? ${await this.getFileMimeType() != await otherFile.getFileMimeType()}`)
+    if (await this.getFileMimeType() == await otherFile.getFileMimeType()) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  public async sameTotalFileBytes(otherFile: MediaFile) {
+    // console.log(`this.getTotalFileBytes() != otherFile.getTotalFileBytes()? ${this.getTotalFileBytes() != otherFile.getTotalFileBytes()}`)
+    if (this.getTotalFileBytes() == otherFile.getTotalFileBytes()) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  public async sameFileName(otherFile: MediaFile) {
+    // console.log(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
+    if (this.fileName == otherFile.fileName) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  public async sameHash(otherFile: MediaFile) {
+    // console.log(`this.checksum != otherFile.checksum? ${await this.getChecksum() != await otherFile.getChecksum()}`)
+    if (await this.getChecksum() == await otherFile.getChecksum()) {
+      return true
+    } else {
+      return false
+    }
   }
 
   public async getChecksum() {
@@ -69,16 +81,7 @@ export abstract class MediaFile {
   }
 
   public async getFileMimeType() {
-    if (this._fileMimeType == null)
-      this._fileMimeType = (await FileType.fromFile(this.filePath)).mime
-
-    // console.log('hello3: ' + JSON.stringify(await FileType.fromFile(this.filePath)));
-
+    if (this._fileMimeType == null) this._fileMimeType = (await FileType.fromFile(this.filePath)).mime
     return this._fileMimeType
   }
 }
-
-
-    // public static async CreateAsync(filePath: string) {
-  //   const file = new File(filePath) 
-  // }
