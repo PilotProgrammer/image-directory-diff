@@ -32,8 +32,10 @@ export class VideoFile extends MediaFile<VideoFile> {
     if (this._stats == null) {
       const ffprobe = require('ffprobe')
       const ffprobeStatic = require('ffprobe-static');
-      this._stats = ffprobe(this.filePath, { path: ffprobeStatic.path })
+      this._stats = await ffprobe(this.filePath, { path: ffprobeStatic.path })
     }
+
+    // codec_type = 'video' gives you the video stream!
 
     // https://video.stackexchange.com/questions/27546/difference-between-duration-ts-and-duration-in-ffprobe-output
     return this._stats.duration

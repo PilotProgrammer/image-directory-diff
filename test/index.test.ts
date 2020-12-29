@@ -46,10 +46,12 @@ describe("Test file comparison", function() {
   })
 
   it("Test video sameVideoDurationInSeconds", async () => {
-    // const factory = new MediaFileFactory()
-    // const image1 = <ImageFile> await factory.createMediaFile(imageFileName3)
-    // const image2 = <ImageFile> await factory.createMediaFile(imageFileName4)
-    // expect(await image1.sameVideoDurationInSeconds(image2)).toBeTruthy()
+    const factory = new MediaFileFactory()
+    const videoFile1 = <VideoFile> await factory.createMediaFile(videoFileName1)
+    const videoFile2 = <VideoFile> await factory.createMediaFile(videoFileName2)
+    const videoFile4 = <VideoFile> await factory.createMediaFile(videoFileName4)
+    expect(await videoFile1.sameVideoDurationInSeconds(videoFile2)).toBeFalsy()
+    expect(await videoFile2.sameVideoDurationInSeconds(videoFile4)).toBeTruthy()
   })
 
   it("Test image comparison", async () => {
