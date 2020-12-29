@@ -54,6 +54,12 @@ describe("Test file comparison", function() {
     expect(await videoFile2.sameVideoDurationInSeconds(videoFile4)).toBeTruthy()
   })
 
+  // TODO tests needed
+  // if (!(await this.sameFileName(otherFile))) return false
+  // if (!(await this.sameHash(otherFile))) return false
+  // if (!(await this.sameTotalFileBytes(otherFile))) return false
+  // if (!(await this.sameFileMimeType(otherFile))) return false
+
   it("Test image comparison", async () => {
     const factory = new MediaFileFactory()
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
