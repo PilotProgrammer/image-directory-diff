@@ -22,7 +22,6 @@
           "--runInBand",
           "--coverage=false",
           "--testTimeout=1990000",
-          "'-h c:/haystack'",
         ]
       },
       "console": "integratedTerminal",
