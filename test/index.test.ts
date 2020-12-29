@@ -40,9 +40,7 @@ describe("Test file comparison", async () => {
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
     const image2 = <ImageFile> await factory.createMediaFile(imageFileName2)
     const videoFile = <ImageFile> await factory.createMediaFile(videoFileName1)
-    
-    expect(await image1.sameMediaType(videoFile)).toBeFalsy()
-    expect(await image1.sameMediaType(image2)).toBeTruthy()
+
   })
 
   it("Test image comparison", async () => {

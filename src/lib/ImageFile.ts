@@ -2,29 +2,19 @@ import { MediaFile } from "./MediaFile";
 const sizeOf = require('image-size');
 
 export interface Dimensions { width: number, height: number }
-export class ImageFile extends MediaFile {
+export class ImageFile extends MediaFile<ImageFile> {
   private _dimensions: Dimensions
 
-  public async equals(otherFile: MediaFile) {
-    if (!this.sameMediaType(otherFile)) return false
-    const otherImage = <ImageFile> otherFile
-    if (!(await this.sameDimensions(otherImage))) return false
+  public async equals(otherFile: MediaFile<ImageFile>) {
+    if (!(await this.sameDimensions(<ImageFile>otherFile))) return false
     if (!super.equals(otherFile)) return false
     
     return true
   }
 
-  public async sameMediaType(otherFile: MediaFile) {
-    if ((otherFile instanceof ImageFile) == true) {
-      return true
-    }
-
-    return false
-  }
-
   public async sameDimensions(otherImage: ImageFile) {
     const myDimensions = await this.getDimensions()
-    const yourDimensions = await otherImage.getDimensions()
+    const yourDimensions = await (<ImageFile>otherImage).getDimensions()
     if ((myDimensions.height == yourDimensions.height) && (myDimensions.width == yourDimensions.width)) {
       return true
     } else {
@@ -47,5 +37,4 @@ export class ImageFile extends MediaFile {
 
     return this._dimensions
   }
-
 }

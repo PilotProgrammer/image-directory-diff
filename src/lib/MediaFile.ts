@@ -3,16 +3,20 @@ import { HashCreater } from "./HashCreater";
 
 const FileType = require('file-type');
 
-export abstract class MediaFile {
-  private logger = factory.getLogger((<any>this).constructor.name);
+// https://stackoverflow.com/questions/42705406/typescript-how-to-set-method-return-value-subclass
+export abstract class MediaFile<T extends MediaFile<any>> {
+  private logger = factory.getLogger((<any>this).constructor.name)
 
   public constructor(protected filePath: string) { }
 
-  private _hashCreater: HashCreater;
-  private _fileMimeType: string;
+  private _hashCreater: HashCreater
+  private _fileMimeType: string
   private _fileSize: number
 
-  public async equals(otherFile: MediaFile | null) {
+  // protected abstract getGenericMediaType(): <T extends MediaFile>
+
+
+  public async equals(otherFile: MediaFile<T>) {
     if (otherFile == null) return false
     if (!(await this.sameFileName(otherFile))) return false
     if (!(await this.sameHash(otherFile))) return false
@@ -21,7 +25,7 @@ export abstract class MediaFile {
     return true
   }
 
-  public async sameFileMimeType(otherFile: MediaFile) {
+  public async sameFileMimeType(otherFile: MediaFile<T>) {
     // console.log(`this.getFileMimeType() != otherFile.getFileMimeType()? ${await this.getFileMimeType() != await otherFile.getFileMimeType()}`)
     if (await this.getFileMimeType() == await otherFile.getFileMimeType()) {
       return true
@@ -30,7 +34,7 @@ export abstract class MediaFile {
     }
   }
 
-  public async sameTotalFileBytes(otherFile: MediaFile) {
+  public async sameTotalFileBytes(otherFile: MediaFile<T>) {
     // console.log(`this.getTotalFileBytes() != otherFile.getTotalFileBytes()? ${this.getTotalFileBytes() != otherFile.getTotalFileBytes()}`)
     if (this.getTotalFileBytes() == otherFile.getTotalFileBytes()) {
       return true
@@ -39,7 +43,7 @@ export abstract class MediaFile {
     }
   }
 
-  public async sameFileName(otherFile: MediaFile) {
+  public async sameFileName(otherFile: MediaFile<T>) {
     // console.log(`this.fileName != otherFile.fileName? ${this.fileName != otherFile.fileName}`)
     if (this.fileName == otherFile.fileName) {
       return true
@@ -48,7 +52,7 @@ export abstract class MediaFile {
     }
   }
 
-  public async sameHash(otherFile: MediaFile) {
+  public async sameHash(otherFile: MediaFile<T>) {
     // console.log(`this.checksum != otherFile.checksum? ${await this.getChecksum() != await otherFile.getChecksum()}`)
     if (await this.getChecksum() == await otherFile.getChecksum()) {
       return true
