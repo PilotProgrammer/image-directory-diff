@@ -28,22 +28,31 @@ const videoFileName3 = module.path + '/data/b/2.mov'
 const videoFileName4 = module.path + '/data/c/1.mov'
 
 describe("Test file comparison", async () => {
-  it("Test image dimensions", async () => {
+  xit("Test image dimensions", async () => {
     const factory = new MediaFileFactory()
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
     expect((await image1.getDimensions()).height).toBe(105)
     expect((await image1.getDimensions()).width).toBe(132)
   })
 
-  it("Test same media type", async () => {
+  it("Test image sameDimensions", async () => {
     const factory = new MediaFileFactory()
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
     const image2 = <ImageFile> await factory.createMediaFile(imageFileName2)
-    const videoFile = <ImageFile> await factory.createMediaFile(videoFileName1)
-
+    const image3 = <ImageFile> await factory.createMediaFile(imageFileName3)
+    const image4 = <ImageFile> await factory.createMediaFile(imageFileName4)
+    expect(await image1.sameDimensions(image2)).toBeFalsy()
+    expect(await image3.sameDimensions(image4)).toBeTruthy()
   })
 
-  it("Test image comparison", async () => {
+  xit("Test video sameVideoDurationInSeconds", async () => {
+    // const factory = new MediaFileFactory()
+    // const image1 = <ImageFile> await factory.createMediaFile(imageFileName3)
+    // const image2 = <ImageFile> await factory.createMediaFile(imageFileName4)
+    // expect(await image1.sameVideoDurationInSeconds(image2)).toBeTruthy()
+  })
+
+  xit("Test image comparison", async () => {
     const factory = new MediaFileFactory()
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
     const image2 = <ImageFile> await factory.createMediaFile(imageFileName2)
