@@ -8,15 +8,10 @@ process.argv = [
   'c:/needles'
 ]
 
+import { ImageFile } from '../src/lib/ImageFile'
 import { MediaFileFactory } from '../src/lib/MediaFileFactory'
 import { VideoFile } from '../src/lib/VideoFile'
-import { ImageFile } from '../src/lib/ImageFile'
-import { assert } from 'console'
-import { MediaFile } from '../src/lib/MediaFile'
 
-// '/Library/haystack/1.JPG' is 1557620823e163c4c69bf7970df6e007fed8741613ded73009dd93eed04586ce
-// const fileName = '/Library/haystack/1.JPG'
-// const videoFileName1 = '/Library/needles/11.MOV'
 const imageFileName1 = module.path + '/data/a/1.png'
 const imageFileName2 = module.path + '/data/a/2.png'
 const imageFileName3 = module.path + '/data/b/2.png'
@@ -54,11 +49,45 @@ describe("Test file comparison", function() {
     expect(await videoFile2.sameVideoDurationInSeconds(videoFile4)).toBeTruthy()
   })
 
-  // TODO tests needed
   // if (!(await this.sameFileName(otherFile))) return false
+  it("Test mediafile sameFileName", async () => {
+    const factory = new MediaFileFactory()
+    const videoFile1 = <VideoFile> await factory.createMediaFile(videoFileName1)
+    const videoFile2 = <VideoFile> await factory.createMediaFile(videoFileName2)
+    const videoFile4 = <VideoFile> await factory.createMediaFile(videoFileName4)
+    expect(await videoFile1.sameFileName(videoFile4)).toBeTruthy()
+    expect(await videoFile2.sameFileName(videoFile4)).toBeFalsy()
+  })
+
   // if (!(await this.sameHash(otherFile))) return false
+  it("Test mediafile sameHash", async () => {
+    const factory = new MediaFileFactory()
+    const videoFile1 = <VideoFile> await factory.createMediaFile(videoFileName1)
+    const videoFile2 = <VideoFile> await factory.createMediaFile(videoFileName2)
+    const videoFile4 = <VideoFile> await factory.createMediaFile(videoFileName4)
+    expect(await videoFile1.sameHash(videoFile4)).toBeFalsy()
+    expect(await videoFile2.sameHash(videoFile4)).toBeTruthy()
+  })
+
   // if (!(await this.sameTotalFileBytes(otherFile))) return false
+  it("Test mediafile sameTotalFileBytes", async () => {
+    const factory = new MediaFileFactory()
+    const videoFile1 = <VideoFile> await factory.createMediaFile(videoFileName1)
+    const videoFile2 = <VideoFile> await factory.createMediaFile(videoFileName2)
+    const videoFile4 = <VideoFile> await factory.createMediaFile(videoFileName4)
+    expect(await videoFile1.sameTotalFileBytes(videoFile4)).toBeFalsy()
+    expect(await videoFile2.sameTotalFileBytes(videoFile4)).toBeTruthy()
+  })
+
   // if (!(await this.sameFileMimeType(otherFile))) return false
+  it("Test mediafile sameFileMimeType", async () => {
+    const factory = new MediaFileFactory()
+    const videoFile1 = <VideoFile> await factory.createMediaFile(videoFileName1)
+    const videoFile2 = <VideoFile> await factory.createMediaFile(videoFileName2)
+    const imageFile1 = <ImageFile> await factory.createMediaFile(imageFileName1)
+    expect(await videoFile1.sameFileMimeType(imageFile1)).toBeFalsy()
+    expect(await videoFile1.sameFileMimeType(videoFile2)).toBeTruthy()
+  })
 
   it("Test image comparison", async () => {
     const factory = new MediaFileFactory()
