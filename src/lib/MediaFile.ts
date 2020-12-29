@@ -12,10 +12,7 @@ export abstract class MediaFile<T extends MediaFile<any>> {
   private _hashCreater: HashCreater
   private _fileMimeType: string
   private _fileSize: number
-
-  // protected abstract getGenericMediaType(): <T extends MediaFile>
-
-
+  
   public async equals(otherFile: MediaFile<T>) {
     if (otherFile == null) return false
     if (!(await this.sameFileName(otherFile))) return false
