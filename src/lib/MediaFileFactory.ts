@@ -7,7 +7,7 @@ const FileType = require('file-type');
 
 export class MediaFileFactory {
   public async createMediaFile(filePath: string) {
-    const fileMimeType: string = (await FileType.fromFile(filePath)).mime
+    const fileMimeType: string = (  await FileType.fromFile(filePath)).mime
 
     if ((<string[]>Object.values(VideoFileTypes)).includes(fileMimeType)) {
       return new VideoFile(filePath)

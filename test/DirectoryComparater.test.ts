@@ -1,8 +1,3 @@
-import { ImageDirectoryDiff, ImageDirectoryDiffEvent, ImageDirectoryDiffResult } from '../src/lib/ImageDirectoryDiff'
-
-import { imageFileName1, imageFileName2, imageFileName3, imageFileName4, videoFileName1, videoFileName2, videoFileName4, videoFileName3
-} from './Common.tests'
-
 process.argv = [
   'node',
   'Program.js',
@@ -12,18 +7,23 @@ process.argv = [
   'c:/needles'
 ]
 
+import { ImageDirectoryDiff, ImageDirectoryDiffEvent, ImageDirectoryDiffResult } from '../src/lib/ImageDirectoryDiff'
+
+import { imageFileName1, imageFileName2, imageFileName3, imageFileName4, videoFileName1, videoFileName2, videoFileName4, videoFileName3
+} from './Common.tests'
+
 const directoryA = module.path + '/data/a'
 const directoryB = module.path + '/data/b'
 const directoryC = module.path + '/data/c'
 
-describe("Test file comparison", function () {
-  it("Test image dimensions", async () => {
+describe("Test directory comparison", function () {
+  it("Test directories", async () => {
     const event: ImageDirectoryDiffEvent = {
       directoryPaths: [directoryA, directoryB, directoryC]
     }
 
     const diff = new ImageDirectoryDiff()
-    const diffs = diff.determine(event)
+    const diffs = await diff.determine(event)
 
     expect(diffs.diffResults.length == 3).toBeTruthy()
     let hitCount = 0

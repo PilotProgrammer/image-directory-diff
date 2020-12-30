@@ -1,16 +1,18 @@
+import { MediaFileFactory } from "./MediaFileFactory";
+
 const fs = require('fs');
 const path = require('path')
 
 export class Directory {
 
   public constructor(private directoryPath: string) {
-    this._allFiles = this.walkFiles(this.directoryPath, []);
+    this._allFilePaths = this.walkFiles(this.directoryPath, []);
   }
 
-  private _allFiles: string[];
+  private _allFilePaths: string[];
 
   get allFiles() {
-    return this._allFiles;
+    return this._allFilePaths;
   }
 
   private walkFiles(dir: string, filelist: Array<string>) {
@@ -26,5 +28,23 @@ export class Directory {
       }
     }
     return filelist
+  }
+
+  public async containsFile(compareFilePath: string) {
+    const factory = new MediaFileFactory()
+    const compareFile = await factory.createMediaFile(compareFilePath)
+    
+    let found = false
+    
+    for (const myFilePath in this._allFilePaths) {
+      const myFile = await factory.createMediaFile(myFilePath)
+
+      if (compareFile.equals(myFile)) {
+        found = true
+        break
+      }
+    }
+
+    return found
   }
 }

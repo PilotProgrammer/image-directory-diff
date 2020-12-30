@@ -20,8 +20,7 @@ export interface ImageDirectoryDiffResults {
 }
 
 export class ImageDirectoryDiff {
-  public determine(event: ImageDirectoryDiffEvent) {
-    // return this
+  public async determine(event: ImageDirectoryDiffEvent) {
     const returnDiffResults: ImageDirectoryDiffResults = {
       diffResults: new Array()
     }
@@ -29,11 +28,11 @@ export class ImageDirectoryDiff {
     // create tuples of each pair that was passed in list of directories
     const directoryTuples: Array<ImageDirectoryDiffPreProcess> = this.createDirectoryTuples(event);
     
-    directoryTuples.forEach(element => {
+    directoryTuples.forEach(async (element) => {
       const pathOne = path.normalize(element.directoryPathOne)
       const pathTwo = path.normalize(element.directoryPathTwo)
       const directoryComparater = new DirectoryComparater(pathOne, pathTwo)
-      const directoryDiff = directoryComparater.diffDirectories()
+      const directoryDiff = await directoryComparater.diffDirectories()
       returnDiffResults.diffResults.push(directoryDiff)
     })
     

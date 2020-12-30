@@ -13,30 +13,39 @@ export class DirectoryComparater {
   private _leftDirectory: Directory;
   private _rightDirectory: Directory;
 
-  public diffDirectories() {
-    const allFilePairs = this._leftDirectory.allFiles.flatMap((leftFile: string) => {
-      return this._rightDirectory.allFiles.map((rightFile: string) => {
-        const tuple = [leftFile, rightFile]
-        return tuple
-      })
-    })
+  public async diffDirectories() {
+    const filesInDirectoryLeftButNotInDirectoryRight = new Array<string>()
+    
+    try {
+      for await (const myFile of this._leftDirectory.allFiles) {
+        if ((await this._rightDirectory.containsFile(myFile)) == false) {
+          filesInDirectoryLeftButNotInDirectoryRight.push(myFile)
+        }
+      }
+    } catch (error) {
+      console.error(`diffDirectories.error.${JSON.stringify(error)}`)
+    }
 
-    const filesInDirectoryOneExceptDirectoryTwo = new Array<string>()
-    const filesInDirectoryTwoExceptDirectoryOne = new Array<string>()
+    // await Promise.all(this._leftDirectory.allFiles.map(async (file: string) => {
+    //   if ((await this._rightDirectory.containsFile(file)) == false) {
+    //     filesInDirectoryLeftButNotInDirectoryRight.push(file)
+    //   }
+    // }))
 
-    allFilePairs.forEach( (element: string[]) => {
-      const left = element[0]
-      const right = element[1]
+    /*
+    const filesInDirectoryRightButNotInDirectoryLeft = new Array<string>()
+    await Promise.all(this._rightDirectory.allFiles.map(async (file: string) => {
+      if ((await this._leftDirectory.containsFile(file)) == false) {
+        filesInDirectoryRightButNotInDirectoryLeft.push(file)
+      }
+    }))
+    */
 
-      const factory = new MediaFileFactory()
-      // const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
-  
-    })
     let returnDiff: ImageDirectoryDiffResult = {
       directoryPathOne: this.leftDirectoryPath,
       directoryPathTwo: this.rightDirectoryPath,
-      filesInDirectoryOneExceptDirectoryTwo: null, // TODO
-      filesInDirectoryTwoExceptDirectoryOne: null, // TODO
+      filesInDirectoryOneExceptDirectoryTwo: filesInDirectoryLeftButNotInDirectoryRight,
+      filesInDirectoryTwoExceptDirectoryOne: null // filesInDirectoryRightButNotInDirectoryLeft,
     }
 
     return returnDiff
