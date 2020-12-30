@@ -1,18 +1,13 @@
 // https://stackoverflow.com/questions/47610880/how-to-send-node-command-line-arguments-in-jest-test
-process.argv = [
-  'node',
-  'Program.js',
-  '--haystack-dir',
-  'c:/haystack',
-  '--needles-dir',
-  'c:/needles'
-]
+
+import { mockArgs, imageFileName1, imageFileName2, imageFileName3, imageFileName4, videoFileName1, videoFileName2, videoFileName4 
+} from './Common.tests'
+
+process.argv = mockArgs
 
 import { ImageFile } from '../src/lib/ImageFile'
 import { MediaFileFactory } from '../src/lib/MediaFileFactory'
 import { VideoFile } from '../src/lib/VideoFile'
-import { imageFileName1, imageFileName2, imageFileName3, imageFileName4, videoFileName1, videoFileName2, videoFileName4 
-} from './Common.tests'
 
 describe("Test file comparison", function() {
   it("Test image dimensions", async () => {

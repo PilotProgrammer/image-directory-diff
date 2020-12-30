@@ -1,17 +1,11 @@
-process.argv = [
-  'node',
-  'Program.js',
-  '--haystack-dir',
-  'c:/haystack',
-  '--needles-dir',
-  'c:/needles'
-]
 
-import { ImageDirectoryDiff, ImageDirectoryDiffEvent, ImageDirectoryDiffResult } from '../src/lib/ImageDirectoryDiff'
 
-import { imageFileName1, imageFileName2, imageFileName3, imageFileName4, videoFileName1, videoFileName2, videoFileName4, videoFileName3
+import { mockArgs, imageFileName1, imageFileName2, imageFileName3, imageFileName4, videoFileName1, videoFileName2, videoFileName4, videoFileName3
 } from './Common.tests'
 
+process.argv = mockArgs
+
+import { ImageDirectoryDiff, ImageDirectoryDiffEvent, ImageDirectoryDiffResult } from '../src/lib/ImageDirectoryDiff'
 const directoryA = module.path + '/data/a'
 const directoryB = module.path + '/data/b'
 const directoryC = module.path + '/data/c'
