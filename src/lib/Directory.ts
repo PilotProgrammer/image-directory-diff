@@ -2,8 +2,8 @@ const fs = require('fs');
 
 export class Directory {
 
-  public constructor(private directoryName: string) {
-    this._allFiles = this.walkFiles(this.directoryName, []);
+  public constructor(private directoryPath: string) {
+    this._allFiles = this.walkFiles(this.directoryPath, []);
   }
 
   private _allFiles: string;

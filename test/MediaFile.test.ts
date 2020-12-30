@@ -22,7 +22,7 @@ const videoFileName2 = module.path + '/data/a/2.mov'
 const videoFileName3 = module.path + '/data/b/2.mov'
 const videoFileName4 = module.path + '/data/c/1.mov'
 
-describe("Test file comparison", function() {
+xdescribe("Test file comparison", function() {
   it("Test image dimensions", async () => {
     const factory = new MediaFileFactory()
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
@@ -104,17 +104,5 @@ describe("Test file comparison", function() {
     
     // two of image with same name but different content, should return false.
     expect(await image1.equals(image4)).toBeFalsy()
-
-
-
-    // const videoFile = new VideoFile(fileName)
-    // const duration = await videoFile.getVideoDurationInSeconds()
-    // console.log(`duration ${JSON.stringify(duration)}`);
-
-    // const file = new ImageFile(fileName)
-    // const fileType = await file.getFileMimeType()
-    // const fileHash = await file.getChecksum()
-    // const fileStats = await file.getTotalFileBytes()
-    // console.log(`READ ${fileType} ${fileHash} ${fileName} stats ${JSON.stringify(fileStats)}`);
   })
 })
