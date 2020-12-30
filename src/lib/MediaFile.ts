@@ -14,6 +14,7 @@ export abstract class MediaFile<T extends MediaFile<any>> {
   private _fileSize: number
   
   public async equals(otherFile: MediaFile<T>) {
+    this.logger.info(`Checking this file ${this.filePath} equal otherFile ${otherFile.filePath}`)
     if (otherFile == null) return false
     if (!(await this.sameFileName(otherFile))) return false
     if (!(await this.sameHash(otherFile))) return false

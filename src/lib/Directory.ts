@@ -1,9 +1,11 @@
 import { MediaFileFactory } from "./MediaFileFactory";
+import { factory } from "../Program";
 
 const fs = require('fs');
 const path = require('path')
 
 export class Directory {
+  private logger = factory.getLogger((<any>this).constructor.name)
 
   public constructor(private directoryPath: string) {
     this._allFilePaths = this.walkFiles(this.directoryPath, []);
@@ -40,10 +42,13 @@ export class Directory {
       const myFile = await factory.createMediaFile(myFilePath)
 
       if (await compareFile.equals(myFile)) {
+        
         found = true
         break
       }
     }
+
+    this.logger.info(`Directory ${this.directoryPath} contains file ${compareFile}? ${found}`)
 
     return found
   }
