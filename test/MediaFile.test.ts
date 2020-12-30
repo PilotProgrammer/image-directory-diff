@@ -11,18 +11,10 @@ process.argv = [
 import { ImageFile } from '../src/lib/ImageFile'
 import { MediaFileFactory } from '../src/lib/MediaFileFactory'
 import { VideoFile } from '../src/lib/VideoFile'
+import { imageFileName1, imageFileName2, imageFileName3, imageFileName4, videoFileName1, videoFileName2, videoFileName4 
+} from './Common.tests'
 
-const imageFileName1 = module.path + '/data/a/1.png'
-const imageFileName2 = module.path + '/data/a/2.png'
-const imageFileName3 = module.path + '/data/b/2.png'
-const imageFileName4 = module.path + '/data/c/1.png'
-
-const videoFileName1 = module.path + '/data/a/1.mov'
-const videoFileName2 = module.path + '/data/a/2.mov'
-const videoFileName3 = module.path + '/data/b/2.mov'
-const videoFileName4 = module.path + '/data/c/1.mov'
-
-xdescribe("Test file comparison", function() {
+describe("Test file comparison", function() {
   it("Test image dimensions", async () => {
     const factory = new MediaFileFactory()
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)

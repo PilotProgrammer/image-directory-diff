@@ -19,6 +19,10 @@ export class DirectoryComparater {
       })
     })
 
+    const filesInDirectoryOneExceptDirectoryTwo = new Array<string>()
+    const filesInDirectoryTwoExceptDirectoryOne = new Array<string>()
+
+
     let returnDiff: ImageDirectoryDiffResult = {
       directoryPathOne: this.leftDirectoryPath,
       directoryPathTwo: this.rightDirectoryPath,

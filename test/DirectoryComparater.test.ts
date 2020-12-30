@@ -32,7 +32,10 @@ describe("Test file comparison", function () {
 
     diffs.diffResults.forEach(element => {
       if (element.directoryPathOne == directoryA && element.directoryPathTwo == directoryB) {
-        expect(true).toBeTruthy()
+        
+        // expect(element.filesInDirectoryOneExceptDirectoryTwo.length).toBe(2)
+        // expect(element.filesInDirectoryTwoExceptDirectoryOne.length).toBe(0)
+        // expect(element.filesInDirectoryOneExceptDirectoryTwo.includes())
         hitCount++
       } else if (element.directoryPathOne == directoryA && element.directoryPathTwo == directoryC) {
         expect(true).toBeTruthy()
@@ -43,6 +46,6 @@ describe("Test file comparison", function () {
       }
     })
 
-    expect(hitCount).toBe(3)
+    // expect(hitCount).toBe(3)
   })
 })
