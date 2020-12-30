@@ -1,0 +1,1 @@
+npm run start "compare-directories=c:/haystack c:/needles"

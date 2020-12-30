@@ -4,8 +4,7 @@
 export const mockArgs = [
   'node',
   'Program.js',
-  '--compare-directories',
-  'c:/haystack c:/needles'
+  'compare-directories=c:/haystack c:/needles'
 ]
 
 export const imageFileName1 = module.path + '/data/a/1.png';

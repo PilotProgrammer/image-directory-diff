@@ -8,8 +8,7 @@
   "scripts": {
     "build": "tsc",
     "help": "npm run build && node dist/Program.js --help",
-    "start1": "npm run build && node dist/Program.js --haystack-dir c:/haystack --needles-dir c:/needles",
-    "start2": "npm run build && node dist/Program.js -h c:/haystack -n c:/needles",
+    "start": "npm run build && node dist/Program.js",
     "watch": "tsc -w",
     "test": "jest"
   },

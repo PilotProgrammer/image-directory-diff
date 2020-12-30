@@ -2,7 +2,7 @@ import { LoggerFactory, LoggerFactoryOptions, LFService, LogGroupRule, LogLevel 
 
 import { ArgParser } from "./lib/ArgParser";
 import { MediaFile } from "./lib/MediaFile";
-import { ImageDirectoryDiff } from "./lib/ImageDirectoryDiff";
+import { ImageDirectoryDiff, ImageDirectoryDiffEvent } from "./lib/ImageDirectoryDiff";
 import { ImageFile } from "./lib/ImageFile";
 import { VideoFile } from "./lib/VideoFile";
 import { MediaFileFactory } from "./lib/MediaFileFactory";
@@ -19,11 +19,19 @@ exports.handler = async (event: any = {}): Promise<any> => {
 }
 
 const argParser = new ArgParser();
-let { haystackDir, needlesDir } = argParser.parseArgs();
-console.log(`haystackDir: ${haystackDir} needlesDir: ${needlesDir}`)
+const directories = argParser.parseArgs();
+// console.log(`haystackDir: ${haystackDir} needlesDir: ${needlesDir}`)
 export class Program {
   public static async main() {
+    const event: ImageDirectoryDiffEvent = {
+      directoryPaths: directories
+    }
 
+    const diff = new ImageDirectoryDiff()
+    const diffs = await diff.determine(event)
+    const formatted = JSON.stringify(diffs, null, 2) // spacing level = 2
+
+    console.log(`diffs ${formatted}`)
   }
 }
 Program.main()
