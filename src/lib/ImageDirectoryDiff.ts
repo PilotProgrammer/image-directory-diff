@@ -28,13 +28,13 @@ export class ImageDirectoryDiff {
     // create tuples of each pair that was passed in list of directories
     const directoryTuples: Array<ImageDirectoryDiffPreProcess> = this.createDirectoryTuples(event);
     
-    directoryTuples.forEach(async (element) => {
+    for (const element of directoryTuples) {
       const pathOne = path.normalize(element.directoryPathOne)
       const pathTwo = path.normalize(element.directoryPathTwo)
       const directoryComparater = new DirectoryComparater(pathOne, pathTwo)
       const directoryDiff = await directoryComparater.diffDirectories()
       returnDiffResults.diffResults.push(directoryDiff)
-    })
+    }
     
     return returnDiffResults
   }

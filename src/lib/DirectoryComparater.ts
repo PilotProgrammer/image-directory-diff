@@ -17,7 +17,8 @@ export class DirectoryComparater {
     const filesInDirectoryLeftButNotInDirectoryRight = new Array<string>()
     
     try {
-      for await (const myFile of this._leftDirectory.allFiles) {
+      // for await (const myFile of this._leftDirectory.allFiles) {
+      for (const myFile of this._leftDirectory.allFiles) {
         if ((await this._rightDirectory.containsFile(myFile)) == false) {
           filesInDirectoryLeftButNotInDirectoryRight.push(myFile)
         }

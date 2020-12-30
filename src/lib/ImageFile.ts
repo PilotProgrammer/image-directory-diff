@@ -6,8 +6,8 @@ export class ImageFile extends MediaFile<ImageFile> {
   private _dimensions: Dimensions
 
   public async equals(otherFile: MediaFile<ImageFile>) {
+    if (!(await super.equals(otherFile))) return false
     if (!(await this.sameDimensions(<ImageFile>otherFile))) return false
-    if (!super.equals(otherFile)) return false
     
     return true
   }

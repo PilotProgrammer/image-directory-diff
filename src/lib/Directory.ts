@@ -36,10 +36,10 @@ export class Directory {
     
     let found = false
     
-    for (const myFilePath in this._allFilePaths) {
+    for (const myFilePath of this._allFilePaths) {
       const myFile = await factory.createMediaFile(myFilePath)
 
-      if (compareFile.equals(myFile)) {
+      if (await compareFile.equals(myFile)) {
         found = true
         break
       }

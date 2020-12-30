@@ -7,8 +7,8 @@ export class VideoFile extends MediaFile<VideoFile> {
   private _videoDuration: number
 
   public async equals(otherFile: MediaFile<VideoFile>) {
+    if (!(await super.equals(otherFile))) return false
     if (!(await this.sameVideoDurationInSeconds(otherFile))) return false
-    if (!super.equals(otherFile)) return false
 
     return true
   }
