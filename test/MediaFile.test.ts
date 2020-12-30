@@ -22,7 +22,7 @@ const videoFileName2 = module.path + '/data/a/2.mov'
 const videoFileName3 = module.path + '/data/b/2.mov'
 const videoFileName4 = module.path + '/data/c/1.mov'
 
-describe("Test file comparison", function() {
+xdescribe("Test file comparison", function() {
   it("Test image dimensions", async () => {
     const factory = new MediaFileFactory()
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)

@@ -6,7 +6,7 @@ export class Directory {
     this._allFiles = this.walkFiles(this.directoryPath, []);
   }
 
-  private _allFiles: string;
+  private _allFiles: string[];
 
   get allFiles() {
     return this._allFiles;

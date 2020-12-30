@@ -1,3 +1,6 @@
+import { DirectoryComparater } from "./DirectoryComparater";
+const path = require('path')
+
 export interface ImageDirectoryDiffEvent {
   directoryPaths: Array<string>
 }
@@ -27,16 +30,13 @@ export class ImageDirectoryDiff {
     const directoryTuples: Array<ImageDirectoryDiffPreProcess> = this.createDirectoryTuples(event);
     
     directoryTuples.forEach(element => {
-      returnDiffResults.diffResults.push({
-        filesInDirectoryOneExceptDirectoryTwo: null,
-        filesInDirectoryTwoExceptDirectoryOne: null,
-        ... element
-      })
+      const pathOne = path.normalize(element.directoryPathOne)
+      const pathTwo = path.normalize(element.directoryPathOne)
+      const directoryComparater = new DirectoryComparater(pathOne, pathTwo)
+      const directoryDiff = directoryComparater.diffDirectories()
+      returnDiffResults.diffResults.push(directoryDiff)
     })
     
-    // const returnList = this.walkFiles('c:/android-sdcard-11-17-19/Camera/', fileList)
-    // const returnList = this.walkFiles('C:/Users/Garrett/Documents/AsusPictures/', fileList)
-    // console.log(JSON.stringify(returnList.length))
     return returnDiffResults
   }
 
@@ -47,6 +47,6 @@ export class ImageDirectoryDiff {
           const diffPreprocessResult: ImageDirectoryDiffPreProcess = { directoryPathOne: one, directoryPathTwo: two };
           return diffPreprocessResult;
         })
-    );
+    )
   }
 }
