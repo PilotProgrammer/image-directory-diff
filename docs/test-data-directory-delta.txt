@@ -1,7 +1,7 @@
 delta directories A/B
 in A but not in B
-* 1.mov
-* 1.png
+* a/1.mov
+* a/1.png
 
 in B but not in A
 * NOTHING (both files are in A)
@@ -9,21 +9,21 @@ in B but not in A
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 delta directories B/C
 in B but not in C (files are same content, but names are different, so should still show up in "delta")
-* 2.mov
-* 2.png
+* b/2.mov
+* b/2.png
 
 in C but not in B (follows same logic as "in B but not in C")
-* 1.mov
-* 1.png
+* c/1.mov
+* c/1.png
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 delta directories A/C
 in A but not in C
-* 1.mov
-* 1.png
-* 2.mov
-* 2.png
+* a/1.mov
+* a/1.png
+* a/2.mov
+* a/2.png
 
 in C but not in A
-* 1.mov
-* 1.png
+* c/1.mov
+* c/1.png

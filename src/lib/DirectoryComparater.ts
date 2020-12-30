@@ -1,5 +1,7 @@
 import { Directory } from "./Directory";
 import { ImageDirectoryDiffResult } from "./ImageDirectoryDiff";
+import { MediaFileFactory } from "./MediaFileFactory";
+
 
 export class DirectoryComparater {
 
@@ -22,7 +24,14 @@ export class DirectoryComparater {
     const filesInDirectoryOneExceptDirectoryTwo = new Array<string>()
     const filesInDirectoryTwoExceptDirectoryOne = new Array<string>()
 
+    allFilePairs.forEach( (element: string[]) => {
+      const left = element[0]
+      const right = element[1]
 
+      const factory = new MediaFileFactory()
+      // const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
+  
+    })
     let returnDiff: ImageDirectoryDiffResult = {
       directoryPathOne: this.leftDirectoryPath,
       directoryPathTwo: this.rightDirectoryPath,
