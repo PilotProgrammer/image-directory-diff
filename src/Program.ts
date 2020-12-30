@@ -20,7 +20,7 @@ exports.handler = async (event: any = {}): Promise<any> => {
 
 const argParser = new ArgParser();
 const directories = argParser.parseArgs();
-// console.log(`haystackDir: ${haystackDir} needlesDir: ${needlesDir}`)
+console.log(`directories: ${JSON.stringify(directories)}`)
 export class Program {
   public static async main() {
     const event: ImageDirectoryDiffEvent = {
