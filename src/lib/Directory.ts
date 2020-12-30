@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path')
 
 export class Directory {
 
@@ -12,17 +13,18 @@ export class Directory {
     return this._allFiles;
   }
 
-  private walkFiles(dir: any, filelist: any): any {
+  private walkFiles(dir: string, filelist: Array<string>) {
     let files = fs.readdirSync(dir);
     filelist = filelist || [];
     for (let file of files) {
-      if (fs.statSync(dir + file).isDirectory()) {
-        filelist = this.walkFiles(dir + file + '/', filelist);
+      const filePath = path.join(dir, file)
+      if (fs.statSync(filePath).isDirectory()) {
+        filelist = this.walkFiles(filePath + '/', filelist);
       }
       else {
-        filelist.push(file);
+        filelist.push(filePath);
       }
     }
-    return filelist;
+    return filelist
   }
 }
