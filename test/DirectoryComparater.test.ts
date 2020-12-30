@@ -14,16 +14,35 @@ const directoryC = module.path + '/data/c'
 
 describe("Test file comparison", function () {
   it("Test image dimensions", async () => {
+
+    // var array1 = ["A", "B", "C"];
+    // var array2 = ["1", "2", "3", "4"];
+    // const asdf = array1.flatMap(d => array2.map(v => d + v))
+
+
     const event: ImageDirectoryDiffEvent = {
       directoryPaths: [directoryA, directoryB, directoryC]
     }
 
-    var array = ["apple", "banana", "lemon", "mango"];
-
     const diff = new ImageDirectoryDiff()
     const diffs = diff.determine(event)
 
+    expect(diffs.diffResults.length == 3).toBeTruthy()
+    let hitCount = 0
 
+    diffs.diffResults.forEach(element => {
+      if (element.directoryPathOne == directoryA && element.directoryPathTwo == directoryB) {
+        expect(true).toBeTruthy()
+        hitCount++
+      } else if (element.directoryPathOne == directoryA && element.directoryPathTwo == directoryC) {
+        expect(true).toBeTruthy()
+        hitCount++
+      } else if (element.directoryPathOne == directoryB && element.directoryPathTwo == directoryC) {
+        expect(true).toBeTruthy()
+        hitCount++
+      }
+    })
 
+    expect(hitCount).toBe(3)
   })
 })
