@@ -12,7 +12,12 @@ export class DirectoryComparater {
   private _rightDirectory: Directory;
 
   public diffDirectories() {
-    const allFilePairs = this._leftDirectory.allFiles.flatMap((d: any) => this._rightDirectory.allFiles.map((v: any) => d + v))
+    const allFilePairs = this._leftDirectory.allFiles.flatMap((leftFile: string) => {
+      return this._rightDirectory.allFiles.map((rightFile: string) => {
+        const tuple = [leftFile, rightFile]
+        return tuple
+      })
+    })
 
     let returnDiff: ImageDirectoryDiffResult = {
       directoryPathOne: this.leftDirectoryPath,
