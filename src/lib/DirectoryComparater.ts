@@ -15,12 +15,19 @@ export class DirectoryComparater {
 
   public async diffDirectories() {
     const filesInDirectoryLeftButNotInDirectoryRight = new Array<string>()
-    
+    const filesInDirectoryRightButNotInDirectoryLeft = new Array<string>()
+
     try {
       // for await (const myFile of this._leftDirectory.allFiles) {
       for (const myFile of this._leftDirectory.allFiles) {
         if ((await this._rightDirectory.containsFile(myFile)) == false) {
           filesInDirectoryLeftButNotInDirectoryRight.push(myFile)
+        }
+      }
+
+      for (const myFile of this._rightDirectory.allFiles) {
+        if ((await this._leftDirectory.containsFile(myFile)) == false) {
+          filesInDirectoryRightButNotInDirectoryLeft.push(myFile)
         }
       }
     } catch (error) {
@@ -46,7 +53,7 @@ export class DirectoryComparater {
       directoryPathOne: this.leftDirectoryPath,
       directoryPathTwo: this.rightDirectoryPath,
       filesInDirectoryOneExceptDirectoryTwo: filesInDirectoryLeftButNotInDirectoryRight,
-      filesInDirectoryTwoExceptDirectoryOne: null // filesInDirectoryRightButNotInDirectoryLeft,
+      filesInDirectoryTwoExceptDirectoryOne: filesInDirectoryRightButNotInDirectoryLeft,
     }
 
     return returnDiff
