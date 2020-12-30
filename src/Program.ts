@@ -13,11 +13,6 @@ const options = new LoggerFactoryOptions()
 
 export const factory = LFService.createNamedLoggerFactory("LoggerFactory", options);
 
-exports.handler = async (event: any = {}): Promise<any> => {
-  const prog = new ImageDirectoryDiff();
-  // prog.main(event);
-}
-
 const argParser = new ArgParser();
 const directories = argParser.parseArgs();
 console.log(`directories: ${JSON.stringify(directories)}`)
@@ -34,4 +29,14 @@ export class Program {
     console.log(`diffs ${formatted}`)
   }
 }
-Program.main()
+
+
+if (directories != null && directories.length >= 1) {
+  if ((directories.length == 1 && directories[0] == 'test')) {
+    console.log(`Running unit tests.`)
+  } else {
+    Program.main()
+  }
+} else {
+  throw new Error(`You must provide a list of directories for which media files delta will be computed. Use --help for more info.`);
+}

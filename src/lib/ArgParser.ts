@@ -25,10 +25,6 @@ export class ArgParser {
     const directories = directoriesString.split(' ')
     console.log(`directories ${directories} argv ${JSON.stringify(process.argv)}`)
 
-    if (directories == null || directories.length <= 1) {
-      throw new Error(`You must provide a list of directories for which media files delta will be computed. Use --help for more info.`);
-    }
-
     return directories
   }
 }
