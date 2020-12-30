@@ -15,11 +15,9 @@
     ],
     "esModuleInterop": true,
     //  "inlineSourceMap": true,
-    "target": "ES2017",
+    "target": "es5",
     "lib": [
-      "es2017",
-      "es5",
-      "es6"
+      "es2019"
     ],
     "declaration": true,
     "noImplicitAny": true,
