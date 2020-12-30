@@ -5,10 +5,12 @@ import { mockArgs, imageFileName1, imageFileName2, imageFileName3, imageFileName
 
 process.argv = mockArgs
 
+const path = require('path')
+
 import { ImageDirectoryDiff, ImageDirectoryDiffEvent, ImageDirectoryDiffResult } from '../src/lib/ImageDirectoryDiff'
-const directoryA = module.path + '/data/a'
-const directoryB = module.path + '/data/b'
-const directoryC = module.path + '/data/c'
+const directoryA = path.join(module.path, 'data', 'a')
+const directoryB = path.join(module.path, 'data', 'b')
+const directoryC = path.join(module.path, 'data', 'c')
 
 describe("Test directory comparison", function () {
   it("Test directories", async () => {

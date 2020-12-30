@@ -9,7 +9,7 @@ import { ImageFile } from '../src/lib/ImageFile'
 import { MediaFileFactory } from '../src/lib/MediaFileFactory'
 import { VideoFile } from '../src/lib/VideoFile'
 
-describe("Test file comparison", function() {
+xdescribe("Test file comparison", function() {
   it("Test image dimensions", async () => {
     const factory = new MediaFileFactory()
     const image1 = <ImageFile> await factory.createMediaFile(imageFileName1)
