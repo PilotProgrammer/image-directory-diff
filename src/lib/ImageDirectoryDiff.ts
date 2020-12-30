@@ -31,7 +31,7 @@ export class ImageDirectoryDiff {
     
     directoryTuples.forEach(element => {
       const pathOne = path.normalize(element.directoryPathOne)
-      const pathTwo = path.normalize(element.directoryPathOne)
+      const pathTwo = path.normalize(element.directoryPathTwo)
       const directoryComparater = new DirectoryComparater(pathOne, pathTwo)
       const directoryDiff = directoryComparater.diffDirectories()
       returnDiffResults.diffResults.push(directoryDiff)
