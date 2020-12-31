@@ -5,16 +5,20 @@ import { VideoFile } from "./VideoFile";
 
 const FileType = require('file-type');
 
-export class MediaFileFactory {
-  public async createMediaFile(filePath: string) {
-    const fileMimeType: string = (await FileType.fromFile(filePath)).mime
+export class MediaFileFactory<T extends MediaFile<any>> {
+  private _mediaFileCache = new Map<string, MediaFile<T>>()
 
-    if ((<string[]>Object.values(VideoFileTypes)).includes(fileMimeType)) {
-      return new VideoFile(filePath)
-    } else if ((<string[]>Object.values(ImageFileTypes)).includes(fileMimeType)) {
-      return new ImageFile(filePath)
+  public async createMediaFile(filePath: string) {
+    if (this._mediaFileCache.get(filePath) == null) {
+      const fileMimeType: string = (await FileType.fromFile(filePath)).mime
+
+      if ((<string[]>Object.values(VideoFileTypes)).includes(fileMimeType)) {
+        this._mediaFileCache.set(filePath, new VideoFile(filePath))
+      } else if ((<string[]>Object.values(ImageFileTypes)).includes(fileMimeType)) {
+        this._mediaFileCache.set(filePath, new ImageFile(filePath))
+      }  
     }
 
-    return null
+    return this._mediaFileCache.get(filePath)
   }
 }

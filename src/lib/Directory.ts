@@ -6,6 +6,7 @@ const path = require('path')
 
 export class Directory {
   private logger = factory.getLogger((<any>this).constructor.name)
+  private readonly factory = new MediaFileFactory()
 
   public constructor(private directoryPath: string) {
     this._allFilePaths = this.walkFiles(this.directoryPath, []);
@@ -33,13 +34,12 @@ export class Directory {
   }
 
   public async containsFile(compareFilePath: string) {
-    const factory = new MediaFileFactory()
-    const compareFile = await factory.createMediaFile(compareFilePath)
+    const compareFile = await this.factory.createMediaFile(compareFilePath)
     
     let found = false
     
     for (const myFilePath of this._allFilePaths) {
-      const myFile = await factory.createMediaFile(myFilePath)
+      const myFile = await this.factory.createMediaFile(myFilePath)
 
       if (await compareFile.equals(myFile)) {
         

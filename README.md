@@ -17,9 +17,16 @@ With 4 directories provided, the program will output the deltas between each of 
 * B to D
 * C to D
 
+WARNING: This project uses rudimentary caching of the file stats (hash values, video duration, etc.). It is assumed that we are not trying to hit a "moving target" -- in other words, the files that are in the directories which are being compared should not be mutated in any way while the process itself is running.
+
 To run this project, first install dependencies
 ```bash
 npm install
+```
+
+Make sure all systems go by running unit tests
+```bash
+npm test
 ```
 
 To get the differences between directories, run this command, with the list of directory paths separated by spaces
