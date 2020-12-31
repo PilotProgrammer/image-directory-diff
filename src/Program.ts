@@ -22,11 +22,15 @@ export class Program {
       directoryPaths: directories
     }
 
+    const start = new Date().getTime();
+
     const diff = new ImageDirectoryDiff()
     const diffs = await diff.determine(event)
     const formatted = JSON.stringify(diffs, null, 2) // spacing level = 2
 
-    console.log(`diffs ${formatted}`)
+    let elapsed = new Date().getTime() - start;
+
+    console.log(`start time ${JSON.stringify(start)} elapsed time ${JSON.stringify(elapsed)} diffs ${formatted}`)
   }
 }
 
