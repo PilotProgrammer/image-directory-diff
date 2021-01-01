@@ -1,5 +1,12 @@
 # image-directory-diff
 
+### Purpose
+
+My goal with this project was to make image/video backup more simple. I take extra caution when it comes to backups, with literally 4 backups of all my media files on various internal and external HDD. 
+
+At one point I had only iOS devices, and so just used iPhoto. After incorporating other devices (Android, higher power Nikon camera, etc.), the backup process wasn't going to work with iPhoto. I've also used other backup tools, and rather than suffer from "vender lock," with potential file export and library merging issues if I switched "vendor" again, I instead just wanted to use a good old file system copy to maintain backups. 
+
+The problem that invariably arises when you back up a proliferation of media files, is that you may have deltas between various backups. Rather than comb through that by hand, this utility will do that on my behalf. I don't trust just using file name to make sure that a media file is backed up, so this utility goes the "extra mile" in making those comparisons -- ensuring to me that a given media file exists across all backups, with 100% certainty.
 ### Overview
 
 This utility compares image and video files in separate directories. When provided a set of directories, the app iterates the files in each directory, and checks the other directories for the existence of the file. The check for "equality" between two files is multi-faceted.
@@ -11,7 +18,7 @@ This utility compares image and video files in separate directories. When provid
 
 For video files only, the video duration is compared. For image files only, the resolution is compared.
 
-With 4 directories provided, the program will output the deltas between each of the pairs of directories. You should get (n-1)! comparisons, like the following, which accounts for comparisons between all the directories:
+With 4 directories provided, the program will output the deltas between each of the pairs of directories. You should get nCr = n! / r! * (n - r)! = 6 comparisons, like the following (4 directories, choose 2), which accounts for comparisons between all the directories:
 * A to B
 * A to C
 * A to D
