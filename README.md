@@ -1,5 +1,7 @@
 # image-directory-diff
 
+### Overview
+
 This utility compares image and video files in separate directories. When provided a set of directories, the app iterates the files in each directory, and checks the other directories for the existence of the file. The check for "equality" between two files is multi-faceted.
 * For images and videos, the following is compared:
   * file name (not path, obviously)
@@ -19,6 +21,8 @@ With 4 directories provided, the program will output the deltas between each of 
 
 WARNING: This project uses rudimentary caching of the file stats (hash values, video duration, etc.). It is assumed that we are not trying to hit a "moving target" -- in other words, the files that are in the directories which are being compared should not be mutated in any way while the process itself is running.
 
+### Usage
+
 To run this project, first install dependencies
 ```bash
 npm install
@@ -34,7 +38,7 @@ To get the differences between directories, run this command, with the list of d
 npm run start "compare-directories=C:\Users\User1\Documents\MyPictures\2020-november D:\MyPictures\2020-november F:\photo-backup\MyPictures\2020-november G:\MyPictures\2020-november"
 ```
 
-The above back command will then output a JSON object which contains the comparisons of each pair of directories in the provided list
+The above back command will then output a JSON object which contains the comparisons of each pair of directories in the provided list. Each "comparison" between a pair of directories will be a separate JSON object within the diffResults JSON array. If "filesInDirectoryOneExceptDirectoryTwo" and "filesInDirectoryTwoExceptDirectoryOne" are both empty lists for a given comparison, then that is indicative that the file contents (media files) of the two directories are the same.
 ```json
 {
   "diffResults": [
