@@ -17,21 +17,33 @@ export class DirectoryComparater {
     const filesInDirectoryLeftButNotInDirectoryRight = new Array<string>()
     const filesInDirectoryRightButNotInDirectoryLeft = new Array<string>()
 
-    try {
-      // for await (const myFile of this._leftDirectory.allFiles) {
-      for (const myFile of this._leftDirectory.allFiles) {
-        if ((await this._rightDirectory.containsFile(myFile)) == false) {
-          filesInDirectoryLeftButNotInDirectoryRight.push(myFile)
-        }
+    // for await (const myFile of this._leftDirectory.allFiles) {
+    for (const myFile of this._leftDirectory.allFiles) {
+      let directoryContainsFile = false
+
+      try {
+        directoryContainsFile = await this._rightDirectory.containsFile(myFile)
+      } catch (error) {
+        console.error(`diffDirectories.error.${JSON.stringify(error)}`)
       }
 
-      for (const myFile of this._rightDirectory.allFiles) {
-        if ((await this._leftDirectory.containsFile(myFile)) == false) {
-          filesInDirectoryRightButNotInDirectoryLeft.push(myFile)
-        }
+      if (directoryContainsFile == false) {
+        filesInDirectoryLeftButNotInDirectoryRight.push(myFile)
       }
-    } catch (error) {
-      console.error(`diffDirectories.error.${JSON.stringify(error)}`)
+    }
+
+    for (const myFile of this._rightDirectory.allFiles) {
+      let directoryContainsFile = false
+
+      try {
+        directoryContainsFile = await this._leftDirectory.containsFile(myFile)
+      } catch (error) {
+        console.error(`diffDirectories.error.${JSON.stringify(error)}`)
+      }
+
+      if (directoryContainsFile == false) {
+        filesInDirectoryRightButNotInDirectoryLeft.push(myFile)
+      }
     }
 
     // await Promise.all(this._leftDirectory.allFiles.map(async (file: string) => {
