@@ -18,7 +18,7 @@ This utility compares image and video files in separate directories. When provid
 
 For video files only, the video duration is compared. For image files only, the resolution is compared.
 
-With 4 directories provided, the program will output the deltas between each of the pairs of directories. You should get nCr = n! / r! * (n - r)! = 6 comparisons, like the following (4 directories, choose 2), which accounts for comparisons between all the directories:
+As an example, with 4 directories provided, the program will output the deltas between each of the pairs of directories. You should get nCr = n! / r! * (n - r)! = 6 comparisons, like the following (4 directories, choose 2), which accounts for comparisons between all the directories:
 * A to B
 * A to C
 * A to D
@@ -30,22 +30,22 @@ WARNING: This project uses rudimentary caching of the file stats (hash values, v
 
 ### Usage
 
-To run this project, first install dependencies
+To run this project, first install dependencies:
 ```bash
 npm install
 ```
 
-Make sure all systems go by running unit tests
+Make sure all systems go by running unit tests:
 ```bash
 npm test
 ```
 
-To get the differences between directories, run this command, with the list of directory paths separated by spaces
+To get the differences between directories, run this command, with the list of directory paths separated by spaces:
 ```bash
 npm run start "compare-directories=C:\Users\User1\Documents\MyPictures\2020-november D:\MyPictures\2020-november F:\photo-backup\MyPictures\2020-november G:\MyPictures\2020-november"
 ```
 
-The above back command will then output a JSON object which contains the comparisons of each pair of directories in the provided list. Each "comparison" between a pair of directories will be a separate JSON object within the diffResults JSON array. If "filesInDirectoryOneExceptDirectoryTwo" and "filesInDirectoryTwoExceptDirectoryOne" are both empty lists for a given comparison, then that is indicative that the file contents (media files) of the two directories are the same.
+The above command will then output a JSON object which contains the comparisons of each pair of directories in the provided list. Each "comparison" between a pair of directories will be a separate JSON object within the diffResults JSON array. If "filesInDirectoryOneExceptDirectoryTwo" and "filesInDirectoryTwoExceptDirectoryOne" are both empty lists for a given comparison, then that is indicative that the file contents (media files) of the two directories are the same.
 ```json
 {
   "diffResults": [
