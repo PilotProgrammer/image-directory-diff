@@ -25,7 +25,15 @@ export abstract class MediaFile<T extends MediaFile<any>> {
 
   public async sameFileMimeType(otherFile: MediaFile<T>) {
     // console.log(`this.getFileMimeType() != otherFile.getFileMimeType()? ${await this.getFileMimeType() != await otherFile.getFileMimeType()}`)
-    if (await this.getFileMimeType() == await otherFile.getFileMimeType()) {
+    let sameFileMimeType = false
+
+    try {
+      sameFileMimeType = await this.getFileMimeType() == await otherFile.getFileMimeType()
+    } catch (error) {
+      this.logger.error(`Error generating file mime types for comparison of ${this.filePath} and ${otherFile.filePath} error: ${JSON.stringify(error)}`)
+    }
+    
+    if (sameFileMimeType) {
       return true
     } else {
       return false
