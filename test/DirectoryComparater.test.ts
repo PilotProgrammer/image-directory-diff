@@ -1,13 +1,12 @@
 
 
-import { mockArgs, imageFileName1, imageFileName2, imageFileName3, imageFileName4, videoFileName1, videoFileName2, videoFileName4, videoFileName3
-} from './Common.tests'
+import { ImageDirectoryDiff, ImageDirectoryDiffEvent } from '../src/lib/ImageDirectoryDiff'
+import { imageFileName1, imageFileName2, imageFileName3, imageFileName4, mockArgs, videoFileName1, videoFileName2, videoFileName3, videoFileName4 } from './Common.tests'
 
 process.argv = mockArgs
 
 const path = require('path')
 
-import { ImageDirectoryDiff, ImageDirectoryDiffEvent, ImageDirectoryDiffResult } from '../src/lib/ImageDirectoryDiff'
 const directoryA = path.join(module.path, 'data', 'a')
 const directoryB = path.join(module.path, 'data', 'b')
 const directoryC = path.join(module.path, 'data', 'c')
