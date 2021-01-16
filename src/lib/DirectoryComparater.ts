@@ -1,8 +1,5 @@
 import { Directory } from "./Directory";
 import { ImageDirectoryDiffResult } from "./ImageDirectoryDiff";
-import { MediaFileFactory } from "./MediaFileFactory";
-
-
 export class DirectoryComparater {
 
   public constructor(private leftDirectoryPath: string, private rightDirectoryPath: string) {
@@ -17,29 +14,21 @@ export class DirectoryComparater {
     const filesInDirectoryLeftButNotInDirectoryRight = new Array<string>()
     const filesInDirectoryRightButNotInDirectoryLeft = new Array<string>()
 
-    // for await (const myFile of this._leftDirectory.allFiles) {
-    for (const myFile of this._leftDirectory.allFiles) {
+    for (const myFile of await this._leftDirectory.getAllFilePaths()) {
       let directoryContainsFile = false
 
-      try {
-        directoryContainsFile = await this._rightDirectory.containsFile(myFile)
-      } catch (error) {
-        console.error(`diffDirectories.error.${JSON.stringify(error)}`)
-      }
+      directoryContainsFile = await this._rightDirectory.containsFile(myFile)
 
       if (directoryContainsFile == false) {
         filesInDirectoryLeftButNotInDirectoryRight.push(myFile)
       }
     }
 
-    for (const myFile of this._rightDirectory.allFiles) {
+    for (const myFile of await this._rightDirectory.getAllFilePaths()) {
       let directoryContainsFile = false
 
-      try {
-        directoryContainsFile = await this._leftDirectory.containsFile(myFile)
-      } catch (error) {
-        console.error(`diffDirectories.error.${JSON.stringify(error)}`)
-      }
+      directoryContainsFile = await this._leftDirectory.containsFile(myFile)
+
 
       if (directoryContainsFile == false) {
         filesInDirectoryRightButNotInDirectoryLeft.push(myFile)

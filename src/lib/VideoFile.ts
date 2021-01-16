@@ -1,7 +1,4 @@
-import { ImageFile } from "./ImageFile";
 import { MediaFile } from "./MediaFile";
-const exec = require('child_process').exec;
-
 export class VideoFile extends MediaFile<VideoFile> {
   private _streams: Array<any>
   private _videoDuration: number

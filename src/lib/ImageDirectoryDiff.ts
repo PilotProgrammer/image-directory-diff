@@ -20,6 +20,10 @@ export interface ImageDirectoryDiffResults {
 }
 
 export class ImageDirectoryDiff {
+  public constructor() {
+
+  }
+
   public async determine(event: ImageDirectoryDiffEvent) {
     const returnDiffResults: ImageDirectoryDiffResults = {
       diffResults: new Array()

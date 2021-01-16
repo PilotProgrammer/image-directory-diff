@@ -1,11 +1,7 @@
-import { LoggerFactory, LoggerFactoryOptions, LFService, LogGroupRule, LogLevel } from "typescript-logging";
-
+import { LFService, LoggerFactoryOptions, LogGroupRule, LogLevel } from "typescript-logging";
 import { ArgParser } from "./lib/ArgParser";
-import { MediaFile } from "./lib/MediaFile";
 import { ImageDirectoryDiff, ImageDirectoryDiffEvent } from "./lib/ImageDirectoryDiff";
-import { ImageFile } from "./lib/ImageFile";
-import { VideoFile } from "./lib/VideoFile";
-import { MediaFileFactory } from "./lib/MediaFileFactory";
+
 
 const options = new LoggerFactoryOptions()
   // .addLogGroupRule(new LogGroupRule(new RegExp("model.+"), LogLevel.Debug))
