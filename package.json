@@ -62,7 +62,7 @@
     "crypto": "^1.0.1",
     "ffprobe": "^1.1.2",
     "ffprobe-static": "^3.0.0",
-    "file-type": "^16.1.0",
+    "file-type": "^16.5.4",
     "image-size": "^0.9.3",
     "path": "^0.12.7",
     "typescript": "^4.1.3",
